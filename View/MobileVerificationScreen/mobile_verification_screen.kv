@@ -1,0 +1,41 @@
+<MobileVerificationScreenView>
+    md_bg_color: app.theme_cls.backgroundColor
+
+    AsyncImage:
+        source: 'assets/images/otp.png'
+        size_hint: .8, .5
+        pos_hint: {'center_x': .5, 'top': 1}
+
+    MDBoxLayout:
+        padding: dp(10)
+        pos_hint: {'top': .65}
+        adaptive_height: True
+        MDLabel:
+            adaptive_height: True
+            halign: 'center'
+            text: '[size=28sp][b]Verification[/b][/size]\nWe will send you a one time passwordon your Phone Number'
+            markup: True
+
+
+
+    MDBoxLayout:
+        pos_hint: {'top': .45}
+        adaptive_height: True
+        orientation: 'vertical'
+        spacing: dp(30)
+        padding: dp(10)
+        MDTextField:
+            mode: 'outlined'
+            MDTextFieldHintText:
+                text: "Phone Number"
+
+        MDButton:
+            style: 'filled'
+            theme_width: 'Custom'
+            size_hint_x: 1
+#            height: dp(90)
+            pos_hint: {'center_x': .5, 'center_y':.5}
+            radius: dp(6)
+            MDButtonText
+                text: 'Get OTP'
+                pos_hint: {'center_x': .5, 'center_y': .5}
