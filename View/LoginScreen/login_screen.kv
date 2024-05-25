@@ -1,0 +1,49 @@
+<LoginScreenView>
+    md_bg_color: app.theme_cls.backgroundColor
+    MDBoxLayout:
+        orientation: 'vertical'
+        pos_hint: {'center_y': .7}
+        MDBoxLayout:
+            size_hint_max_y: .5
+#            pos_hint: {'top':.5}
+            padding: dp(16)
+            orientation: 'vertical'
+            spacing: dp(24)
+            MDTextField:
+                mode: 'outlined'
+                MDTextFieldHintText:
+                    text: "Email"
+
+            MDTextField:
+                mode: 'outlined'
+                MDTextFieldHintText:
+                    text: "Password"
+
+            MDButton:
+                style: 'text'
+                pos_hint: {'center_x': .8}
+                MDButtonText:
+                    text: 'Forget Password'
+
+            MDButton:
+                style: "elevated"
+                theme_width: "Custom"
+                pos_hint: {"center_x": .5, "center_y": .5}
+                size_hint_x: .8
+                radius: dp(4)
+                MDButtonText:
+                    text: "Login"
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+
+        MDBoxLayout:
+            adaptive_size: True
+            size_hint_x: .8
+            pos_hint: {'center_x': .5}
+            MDLabel:
+                id: txt
+                text: "Don't have an account?"
+
+            MDButton:
+                style: 'text'
+                MDButtonText:
+                    text: 'SignUp'

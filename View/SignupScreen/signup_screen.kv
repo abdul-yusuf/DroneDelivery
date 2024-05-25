@@ -1,0 +1,76 @@
+<SignupScreenView>
+    md_bg_color: app.theme_cls.backgroundColor
+
+    MDButton:
+        style: 'text'
+        pos_hint: {'center_x': .1, 'top': .98}
+        MDButtonIcon:
+            icon: 'chevron-left'
+            style: 'standard'
+            size_hint: None, None
+#            size: "84dp", "84dp"
+            theme_font_size: "Custom"
+            font_size: "36sp"
+
+
+    MDBoxLayout:
+        orientation: 'vertical'
+        pos_hint: {'top': .85}
+        adaptive_height: True
+        MDBoxLayout:
+            orientation: 'vertical'
+            spacing: dp(24)
+            padding: dp(10)
+            adaptive_height: True
+            MDLabel:
+                text: 'Signup'
+                font_style: 'Display'
+                role: 'small'
+                bold: True
+
+            MDTextField:
+                MDTextFieldHintText:
+                    text: 'First Name'
+
+            MDTextField:
+                MDTextFieldHintText:
+                    text: 'Last Name'
+
+            MDTextField:
+                MDTextFieldHintText:
+                    text: 'Email'
+
+            MDTextField:
+                MDTextFieldHintText:
+                    text: 'Password'
+
+            MDTextField:
+                MDTextFieldTrailingIcon:
+                    icon: "eye-outline"
+#                    on_: print('Hidden')
+                MDTextFieldHintText:
+                    text: 'Confirm Password'
+
+    MDButton:
+        theme_width: 'Custom'
+        size_hint_x: .8
+        pos_hint: {'center_x': .5, 'top':.2}
+        radius: dp(4)
+        style: 'filled'
+        MDButtonText:
+            text: 'Sign Up'
+            pos_hint: {'center_x': .5, 'center_y':.5}
+
+    MDBoxLayout:
+        adaptive_size: True
+        size_hint_x: .8
+        pos_hint: {'center_x': .5, 'top':.15}
+        MDLabel:
+            id: txt
+            text: "Already have an account?"
+
+        MDButton:
+            style: 'text'
+            on_press: app.change_screen('login screen')
+            MDButtonText:
+                text: 'Sign in'

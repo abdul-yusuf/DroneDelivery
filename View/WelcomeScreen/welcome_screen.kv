@@ -1,0 +1,47 @@
+<WelcomeScreenView>
+    md_bg_color: app.theme_cls.backgroundColor
+
+#    MDBoxLayout:
+#        padding: dp(15)
+#        pos_hint: {'top': .84}
+#        adaptive_height: True
+    MDLabel:
+        adaptive_height: True
+        halign: 'center'
+        text: 'A Campus Drone Delivery Platform'
+        theme_font_size: 'Custom'
+        font_size: '18sp'
+        pos_hint: {'top': .9}
+        bold: True
+
+    AsyncImage:
+        source: "assets/images/img1.jpg"
+        allow_stretch: True
+        radius: [dp(20),]
+        pos_hint: {'center_y': .6}
+
+    MDBoxLayout:
+        pos_hint: {'top': .25}
+        adaptive_height: True
+        orientation: 'vertical'
+        spacing: dp(20)
+        MDButton:
+            style: 'filled'
+            theme_width: 'Custom'
+            size_hint_x: .8
+#            height: dp(90)
+            pos_hint: {'center_x': .5, 'center_y':.5}
+            radius: dp(12)
+            MDButtonText
+                text: 'Sign up'
+                pos_hint: {'center_x': .5, 'center_y': .5}
+        MDButton:
+            style: 'outlined'
+            theme_width: 'Custom'
+            size_hint_x: .8
+#            height: dp(90)
+            pos_hint: {'center_x': .5, 'center_y':.5}
+            radius: dp(12)
+            MDButtonText
+                text: 'Sign in'
+                pos_hint: {'center_x': .5, 'center_y': .5}

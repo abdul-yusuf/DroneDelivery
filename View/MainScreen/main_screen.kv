@@ -1,0 +1,344 @@
+<MySwiper@MDSwiperItem>
+    image: "assets/images/intro1.png"
+    bg: "assets/images/login_page1.png"
+    RelativeLayout:
+        AsyncImage:
+            source: root.bg
+            allow_stretch: True
+        AsyncImage:
+            source: root.image
+            radius: [dp(20),]
+
+
+<MainScreenView>
+    md_bg_color: app.theme_cls.backgroundColor
+
+    MDScreenManager:
+        id: screen_manager
+        MDScreen:
+            # Home Screen
+            name: 'screen 1'
+            MDScrollView:
+                do_scroll_x: False
+                do_scroll_y: True
+                size_hint: 1, None
+                size: root.width, root.height - dp(80)
+        #        md_bg_color: app.theme_cls.backgroundColor
+                MDGridLayout:
+                    size_hint_y: None
+                    cols: 1
+                    height: self.minimum_height
+                    spacing: dp(10)
+                    MDSwiper:
+                        size_hint_y: None
+                        height: dp(240)
+        #                y: root.height - dp(10)
+                        items_spacing: dp(5)
+                        do_scroll_y: False
+                        MDSwiperItem:
+                            AsyncImage:
+                                source: "assets/images/product2.jpg"
+#                                allow_stretch: True
+                        MDSwiperItem:
+                            AsyncImage:
+                                source: "assets/images/product2.jpg"
+                                allow_stretch: True
+                        MDSwiperItem:
+                            AsyncImage:
+                                source: "assets/images/product2.jpg"
+                                allow_stretch: True
+                    MDLabel:
+                        text: 'NEW ARRIVAL'
+        #                bold: True
+                        halign: 'center'
+                        theme_font_size: 'Custom'
+                        font_size: sp(32)
+                        adaptive_height: True
+#
+                    MDTabsSecondary:
+                        id: tabs
+                        allow_stretch: True #False
+                        pos_hint: {"center_x": .5, "center_y": .5}
+
+                        MDDivider:
+
+                        MDTabsItem:
+                            MDTabsItemText:
+                                text: 'All'
+                        MDTabsItem:
+                            MDTabsItemText:
+                                text: 'All'
+                        MDTabsItem:
+                            MDTabsItemText:
+                                text: 'All'
+                        MDTabsItem:
+                            MDTabsItemText:
+                                text: 'All'
+
+                        MDTabsCarousel:
+                            id: related_content
+                            md_bg_color: app.theme_cls.backgroundColor
+                            size_hint_y: None
+                            adaptive_height: True
+                            height: grid_box.height + dp(120)
+        #                    height: self.minimum_height
+                            GridLayout:
+                                id: grid_box
+                                cols: 2
+                                padding: dp(10)
+                                pos_hint: {'top': .98}
+                                size_hint_y: None
+                                height: dp(620)
+                                spacing: dp(10)
+
+                                ItemCard:
+                                ItemCard:
+                                ItemCard:
+                                ItemCard:
+                            GridLayout:
+                                cols: 2
+                                padding: dp(10)
+                                pos_hint: {'top': .98}
+                                size_hint_y: None
+                                height: dp(620)
+                                spacing: dp(10)
+
+                                ItemCard:
+                                ItemCard:
+                            GridLayout:
+                                cols: 2
+                                padding: dp(10)
+                                pos_hint: {'top': .98}
+                                size_hint_y: None
+                                height: dp(620)
+                                spacing: dp(10)
+
+                                ItemCard:
+                                ItemCard:
+                                ItemCard:
+                            GridLayout:
+                                cols: 2
+                                padding: dp(10)
+                                pos_hint: {'top': .98}
+                                size_hint_y: None
+                                height: dp(620)
+                                spacing: dp(10)
+
+                                ItemCard:
+                                ItemCard:
+                                ItemCard:
+                                ItemCard:
+                                ItemCard:
+        MDScreen:
+            # Home Screen
+            name: 'screen 2'
+            MDBoxLayout:
+                padding: dp(10)
+                pos_hint: {'top': .95}
+                adaptive_height: True
+                MDIconButton:
+                    icon: 'magnify'
+                    pos_hint: {'center_y': .5}
+                MDTextField:
+                    id: search_field
+                    hint_text: 'Search icon'
+                    on_text:
+#                        root.set_list_md_icons(self.text, True)
+            RecycleView:
+                id: rv
+                viewclass: 'ItemCard'
+                key_size: 'height'
+#                bar_width: dp(16)
+#                scroll_type: ['bars', 'content']
+                data: [{},{},{},{},{},]
+                size_hint: 1, None
+                size: root.width, root.height - dp(120)
+                RecycleGridLayout:
+                    padding: dp(10), dp(10), 0, dp(10)
+                    default_size: None, dp(48)
+                    default_size_hint: 1, None
+                    size_hint_y: None
+                    height: self.minimum_height + dp(120)
+                    spacing: dp(10)
+                    cols: 2
+        MDScreen:
+            # Home Screen
+            name: 'screen 3'
+            MDLabel:
+                pos_hint: {'top': .92}
+                text: 'Cart'
+                bold: True
+                halign: 'center'
+                adaptive_height: True
+                theme_font_size: 'Custom'
+                font_size: '32sp'
+            RecycleView:
+                id: rv2
+                viewclass: 'FavItemCard'
+                key_size: 'height'
+#                bar_width: dp(16)
+#                scroll_type: ['bars', 'content']
+                data: [{},{},{},{},{},]
+                size_hint: 1, None
+                size: root.width, root.height - dp(120)
+                RecycleGridLayout:
+                    padding: dp(10), dp(10), dp(10), dp(10)
+                    default_size: None, dp(48)
+                    default_size_hint: 1, None
+                    size_hint_y: None
+                    height: self.minimum_height + dp(120)
+                    spacing: dp(10)
+                    cols: 1
+
+        MDScreen:
+            # Home Screen
+            name: 'screen 4'
+            MDListItem:
+                pos_hint: {'center_x': 0.5,'top': .9}
+                adaptive_height: True
+                id: user_detail
+                ripple_behavior: False
+                MDListItemLeadingIcon:
+                    size_hint: None, None
+        #            size: "84dp", "84dp"
+                    theme_font_size: "Custom"
+                    font_size: "56sp"
+                    icon: 'alphabet-cyrillic'
+                MDListItemHeadlineText
+                    text: 'Jane Doe'
+                MDListItemSupportingText:
+                    text: 'janedoe@mail.com'
+
+            MDBoxLayout:
+                orientation: 'vertical'
+#                adaptive_height: True
+                size_hint_y: None
+                height: root.height-(user_detail.height+dp(190))
+                pos_hint: {'top': .8}
+                ScrollView:
+                    adaptive_height: True
+                    size_hint_y: .8
+                    height: root.height-(user_detail.height+dp(120))
+                    MDList:
+#                        AccountItem:
+#                            text: 'Edit Profile'
+#                            on_release: print(self.text)
+#                        AccountItem:
+#                            text: 'Order history'
+#                            on_release: print(self.text)
+#                        AccountItem:
+#                            text: 'Payment method'
+#                            on_release: print(self.text)
+#                        AccountItem:
+#                            text: 'FAQ'
+#                            on_release: print(self.text)
+#                        AccountItem:
+#                            text: 'About Us'
+#                            on_release: print(self.text)
+#                        AccountItem:
+#                            text: 'Contact Us'
+#                            on_release: print(self.text)
+#                        AccountItem:
+#                            text: 'Feedback'
+#                            on_release: print(self.text)
+#                            divider: True
+#                        AccountItem:
+#                            text: 'Sign out'
+#                            on_release: print(self.text)
+
+                MDLabel:
+                    adaptive_height: True
+                    text: "Drone v1.1.1"
+                    padding: dp(20)
+                    halign: 'center'
+
+    CustomNavigationBar:
+        id: navbar_id
+        on_switch_tabs: root.on_switch_tabs(*args)
+        BaseMDNavigationItem:
+            icon: 'home-outline'
+            text: 'screen 1'
+            active: True
+        BaseMDNavigationItem:
+            icon: 'magnify'
+            text: 'screen 2'
+        BaseMDNavigationItem:
+            icon: 'cart-outline'
+            text: 'screen 3'
+        BaseMDNavigationItem:
+            icon: 'account-settings-outline'
+            text: 'screen 4'
+
+<ItemCard@MDCard>
+    adaptive_height: True
+    radius: dp(5)
+    orientation: 'vertical'
+    md_bg_color: app.theme_cls.primaryColor
+    AsyncImage:
+        size_hint_y: None
+        height: dp(280)
+        source: "assets/images/product1.jpg"
+    MDLabel:
+        adaptive_height: True
+        text: '[size=32]Cartier MD[/size]\n₦12000.00'
+        markup: True
+        bold: True
+
+<FavItemCard@MDCard>
+    adaptive_height: True
+    radius: dp(5)
+    orientation: 'horizontal'
+    md_bg_color: app.theme_cls.primaryColor
+    AsyncImage:
+        size_hint: .4, None
+        height: dp(120)
+        source: "assets/images/product1.jpg"
+    MDLabel:
+        adaptive_height: True
+        text: '[size=32]Cartier MD[/size]\n₦12000.00'
+        markup: True
+        bold: True
+
+<BaseMDNavigationItem@MDNavigationItem>
+    icon: ''
+    text: ''
+    MDNavigationItemIcon:
+        icon: root.icon
+#    MDNavigationItemLabel:
+#        text: root.text
+
+#<AccountItem@MDListItem>
+##    size_hint_y: None
+##    height: dp(44)
+##    adaptive_height: True
+##    text: ''
+##    id: user_detail
+##    ripple_behavior: False
+#    pos_hint: {'center_x': 0.5,'top': .9}
+#    adaptive_height: True
+##    id: user_detail
+#    ripple_behavior: False
+#    MDListItemLeadingIcon:
+#        size_hint: None, None
+##            size: "84dp", "84dp"
+#        theme_font_size: "Custom"
+#        font_size: "56sp"
+#        icon: 'alphabet-cyrillic'
+#    MDListItemHeadlineText
+#        text: 'Jane Doe'
+#    MDListItemSupportingText:
+#        text: 'janedoe@mail.com'
+
+<Avatar@ButtonBehavior+MDFloatLayout>
+    size_hint: None, None
+    size: dp(55),dp(55)
+    # elevation:5
+    radius: sp(self.width/2)
+    md_bg_color: app.theme_cls.primaryColor
+    source: 'assets/images/driver.png'
+    FitImage:
+        size: root.size[0]-3, root.size[1]-3
+        size_hint: None, None
+        pos_hint: {'center_x': 0.5,'center_y': 0.5}
+        radius: dp(30)
+        source: root.source
