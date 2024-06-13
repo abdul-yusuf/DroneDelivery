@@ -26,11 +26,14 @@
                     text: 'Forget Password'
 
             MDButton:
-                style: "elevated"
+                style: "filled"
                 theme_width: "Custom"
                 pos_hint: {"center_x": .5, "center_y": .5}
                 size_hint_x: .8
                 radius: dp(4)
+                on_press:
+                    print('on boarding screen')
+                    app.add_screen('main screen')
                 MDButtonText:
                     text: "Login"
                     pos_hint: {'center_x': .5, 'center_y': .5}
@@ -45,5 +48,6 @@
 
             MDButton:
                 style: 'text'
+                on_press: app.add_screen('signup screen')
                 MDButtonText:
                     text: 'SignUp'

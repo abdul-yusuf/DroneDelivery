@@ -1,5 +1,7 @@
+from kivymd.uix.boxlayout import MDBoxLayout
+from kivy.properties import ObjectProperty
 from View.base_screen import BaseScreenView
-from kivymd.uix.navigationbar import MDNavigationBar, MDNavigationItem
+from kivy.clock import Clock
 
 
 class MainScreenView(BaseScreenView):
@@ -9,36 +11,31 @@ class MainScreenView(BaseScreenView):
         The view in this method tracks these changes and updates the UI
         according to these changes.
         """
-    def on_switch_tabs(
-            self,
-            bar: MDNavigationBar,
-            item: MDNavigationItem,
-            item_icon: str,
-            item_text: str,
-        ):
-        print(bar, item, item_icon, item_text)
-        self.ids.screen_manager.current = item_text
 
 
-class CustomNavigationBar(MDNavigationBar):
+class BottomNav(MDBoxLayout):
+    selected = ObjectProperty()
+    screen_manager = ObjectProperty()
 
-    def set_active_item(self, item: MDNavigationItem) -> None:
-        """Sets the currently active element on the panel."""
+    def __init__(self, *args, **kwargs):
+        super(BottomNav, self).__init__(*args, **kwargs)
+        Clock.schedule_once(self.init_selected, 1)
 
-        for widget in self.children:
-            if item is widget:
-                widget.active = True
-                self.dispatch(
-                    "on_switch_tabs",
-                    widget,
-                    # widget.ids.icon_container.children[0].icon
-                    widget.icon
-                    if len(widget.ids.icon_container.children)
-                    else "",
-                    # widget.ids.label_container.children[0].text
-                    widget.text
-                    # if len(widget.ids.label_container.children)
-                    # else "",
-                )
-            else:
-                widget.active = False
+    def init_selected(self, *args, **kwargs):
+        try:
+            self.selected = self.ids.btn1
+            self.selected.style = 'tonal'
+        except AttributeError as e:
+            print(e)
+
+    def switch(self, btn, screen_name):
+        # if btn.style == 'text':
+        if self.selected:
+            self.selected.style = 'text'
+            self.selected = btn
+        else:
+            self.selected = btn
+        btn.style = 'tonal'
+        # else:
+        #     btn.style = 'text'
+        self.screen_manager.current = screen_name

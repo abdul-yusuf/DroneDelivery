@@ -18,6 +18,11 @@ from Model.order_history_screen import OrderHistoryScreenModel
 from Controller.order_history_screen import OrderHistoryScreenController
 
 screens = {
+    'welcome screen': {
+        'model': WelcomeScreenModel,
+        'controller': WelcomeScreenController,
+        'kv': 'View/WelcomeScreen/welcome_screen.kv'
+    },
     # 'order history screen': {
     #     'model': OrderHistoryScreenModel,
     #     'controller': OrderHistoryScreenController,
@@ -25,33 +30,31 @@ screens = {
     'main screen': {
         'model': MainScreenModel,
         'controller': MainScreenController,
+        'kv': 'View/MainScreen/main_screen.kv'
     },
     'on boarding screen': {
         'model': OnBoardingScreenModel,
         'controller': OnBoardingScreenController,
+        'kv': 'View/OnBoardingScreen/on_boarding_screen.kv'
     },
     'otp verification screen': {
         'model': OtpVerificationScreenModel,
         'controller': OtpVerificationScreenController,
-    },
-    'welcome screen': {
-        'model': WelcomeScreenModel,
-        'controller': WelcomeScreenController,
+        'kv': 'View/OtpVerificationScreen/otp_verification_screen.kv'
     },
     'mobile verification screen': {
         'model': MobileVerificationScreenModel,
         'controller': MobileVerificationScreenController,
+        'kv': 'View/MobileVerificationScreen/mobile_verification_screen.kv'
     },
     'login screen': {
         'model': LoginScreenModel,
         'controller': LoginScreenController,
+        'kv': 'View/LoginScreen/login_screen.kv'
     },
     'signup screen': {
         'model': SignupScreenModel,
         'controller': SignupScreenController,
-    },
-    'welcome screen': {
-        'model': WelcomeScreenModel,
-        'controller': WelcomeScreenController,
+        'kv': 'View/SignupScreen/signup_screen.kv'
     },
 }

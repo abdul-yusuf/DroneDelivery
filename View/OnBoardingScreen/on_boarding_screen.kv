@@ -16,6 +16,7 @@
     MDButton:
         style:  'text'
         pos_hint: {'center_x': .9, 'top': .95}
+        on_press: app.add_screen('main screen')
         MDButtonText:
             text: 'Skip'
 
@@ -39,14 +40,14 @@
         orientation: 'vertical'
         MDLabel:
             adaptive_height: True
-            text: 'Effortless Travel Booking with Sahal Ride'
+            text: 'Drone Delivery at your finger tips'
             halign: 'center'
             font_style: 'Headline'
             role: 'small'
             bold: True
         MDLabel:
             adaptive_height: True
-            text: 'Sahal Ride presents you with effortless and convinent method to book your upcoming travel, ensuring a seamless journey from planning to destination'
+            text: 'convinent method to book your upcoming travel, ensuring a seamless journey from planning to destination'
             halign: 'center'
             font_style: 'Body'
             role: 'medium'
@@ -61,7 +62,7 @@
 #            height: dp(90)
             pos_hint: {'center_x': .5, 'center_y':.5}
             radius: dp(12)
-            on_press: app.generate_application_screens('main screen')
+            on_press: app.add_screen('main screen')
             MDButtonText
                 text: 'Next'
                 pos_hint: {'center_x': .5, 'center_y': .5}
