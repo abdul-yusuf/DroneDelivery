@@ -1,67 +1,60 @@
 <MainScreenView>
     md_bg_color: app.theme_cls.backgroundColor
+    on_enter: self.controller.do_populate_chip_box()
     MDScreenManager:
         id: home_screen_manager
         MDScreen:
             name: 'home'
+
             MDScrollView:
                 do_scroll_x: False
                 do_scroll_y: True
                 size_hint: 1, None
-                size: root.width, root.height - dp(60)
+                size: root.width, root.height - dp(20)
+#                effect_cls: DampedScrollEffect
         #        md_bg_color: app.theme_cls.backgroundColor
                 MDGridLayout:
-                    size_hint_y: None
                     cols: 1
-                    height: self.minimum_height
+#                    adaptive_height: True
+                    size_hint_y: None
+                    height: self.minimum_height + dp(80)
                     spacing: dp(10)
                     padding: dp(10)
 
                     MDTextField:
-        #                style: 'fiiled'
+                        on_text: root.controller.do_search(self.text)
                         MDTextFieldTrailingIcon:
                             icon: 'magnify'
 
                         MDTextFieldHintText:
                             text: "Search"
-                    MDGridLayout:
-                        cols: 4
+                    MDStackLayout:
+                        id: chip_box
+#                        cols: 3
                         spacing: dp(10)
                         adaptive_height: True
-                        MDChip:
-                            pos_hint: {"center_x": .5, "center_y": .5}
-                            MDChipText:
-                                text: "MDChip"
 
-                        MDChip:
-                            pos_hint: {"center_x": .5, "center_y": .5}
-                            MDChipText:
-                                text: "MDChip"
+                    Rv:
+                        id: rv
+                        viewclass: 'ItemTile'
+                        data: root.controller.model.items_data
+                        size_hint: 1, None
+                        size: root.width, root.height - dp(40)
+                        MDRecycleGridLayout:
+                            padding: dp(10), dp(10), dp(10), dp(10)
+                            default_size: None, None
+                            default_size_hint: 1, None
+                            size_hint_y: None
+                            height: self.parent.height
+                            spacing: dp(10)
+                            cols: 2
 
-                        MDChip:
-                            pos_hint: {"center_x": .5, "center_y": .5}
-                            MDChipText:
-                                text: "MDChip"
+            MDFabButton:
+                pos_hint: {"center_x": .85, "top": .18}
+                icon: "shopping-search-outline"
+                style: "standard"
+                on_press: app.add_screen('vendor list screen')
 
-                        MDChip:
-                            pos_hint: {"center_x": .5, "center_y": .5}
-                            MDChipText:
-                                text: "MDChip"
-
-                        MDChip:
-                            pos_hint: {"center_x": .5, "center_y": .5}
-                            MDChipText:
-                                text: "MDChip"
-
-                    MDGridLayout:
-                        cols: 2
-                        adaptive_height: True
-                        spacing: dp(5)
-                        ItemTile:
-                        ItemTile:
-                        ItemTile:
-                        ItemTile:
-                        ItemTile:
         MDScreen:
             name: 'cart'
             RecycleView:
@@ -145,35 +138,41 @@
                     size_hint_y: .8
                     height: root.height-(user_detail.height+dp(120))
                     MDList:
-#                        AccountItem:
-#                            text: 'Edit Profile'
-#                            on_release: print(self.text)
-#                        AccountItem:
-#                            text: 'Order history'
-#                            on_release: print(self.text)
-#                        AccountItem:
-#                            text: 'FAQ'
-#                            on_release: print(self.text)
-#                        AccountItem:
-#                            text: 'About Us'
-#                            on_release: print(self.text)
-#                        AccountItem:
-#                            text: 'Contact Us'
-#                            on_release: print(self.text)
-#                        AccountItem:
-#                            text: 'Feedback'
-#                            on_release: print(self.text)
-#                            divider: True
-#                        AccountItem:
-#                            text: 'Sign out'
-#                            on_release: print(self.text)
+                        MDListItem:
+                            MDListItemHeadlineText:
+                                text: 'Edit Profile'
+                        MDListItem:
+                            MDListItemHeadlineText:
+                                text: 'Order history'
+                        MDListItem:
+                            MDListItemHeadlineText:
+                                text: 'FAQ'
+                        MDListItem:
+                            MDListItemHeadlineText:
+                                text: 'About Us'
+                        MDListItem:
+                            MDListItemHeadlineText:
+                                text: 'Contact Us'
+                        MDListItem:
+                            divider: True
+                            MDListItemHeadlineText:
+                                text: 'Feedback'
+                        MDListItem:
+                            MDListItemHeadlineText:
+                                text: 'Sign out'
+
+                MDLabel:
+                    adaptive_height: True
+                    text: "Drone v 0.0.1"
+                    padding: dp(20)
+                    halign: 'center'
 
     BottomNav:
         screen_manager: root.ids.home_screen_manager
 
 <BottomNav>:
     md_bg_color: app.theme_cls.backgroundColor
-    pos_hint: {'center_x': .5, 'top': .075}
+    pos_hint: {'center_x': .5, 'top': .09}
     size_hint: 1, None
     height: dp(65)
     radius: dp(4)
@@ -219,9 +218,17 @@
                 icon: 'account-outline'
 
 <ItemTile@MDCard>:
+    id: root_card
     size_hint_y: None
     height: dp(280)
     orientation: 'vertical'
+    on_press: app.add_screen('item detail screen')
+    pk: 1
+    name: 'asdasd'
+    price: '2000'
+    category: 'Restaurant'
+    vendor: 'Amarya'
+    discription: 'Lorem'
     FitImage:
         source: 'assets/images/product1.jpg'
         size_hint_y: .6
@@ -232,7 +239,7 @@
         orientation: 'vertical'
         MDLabel:
             adaptive_height: True
-            text: "First Item\n₦ 12,000.00"
+            text: f"{root_card.name}\n₦ {root_card.price}"
         MDGridLayout:
             adaptive_height: True
             cols: 2
@@ -283,7 +290,12 @@
                     pos_hint: {'center_x': .5, 'center_y': .5}
                     icon: 'plus'
 
-<AccountItem@MDListItem>
-    text: ''
-    MDListItemHeadlineText
-        text: root.text
+<CChip@MDBoxLayout>:
+    adaptive_size: True
+    md_bg_color: app.theme_cls.backgroundColor
+#    size_hint_y: None
+##    height: dp(40)
+    MDChip:
+        pos_hint: {"center_x": .5, "center_y": .5}
+        MDChipText:
+            text: "MDChip"

@@ -1,0 +1,71 @@
+<VendorListScreenView>
+    md_bg_color: app.theme_cls.backgroundColor
+
+    RecycleView:
+        id: rv2
+        viewclass: 'VendorsTile'
+        key_size: 'height'
+        pos_hint: {'top': .92}
+#                bar_width: dp(16)
+#                scroll_type: ['bars', 'content']
+        data: [{},{},{},{},{},]
+        size_hint: 1, None
+        size: root.width, root.height - dp(20)
+        RecycleGridLayout:
+            padding: dp(10), dp(10), dp(10), dp(10)
+            default_size: None, None
+            default_size_hint: 1, None
+            size_hint_y: None
+            height: self.minimum_height + dp(220)
+            spacing: dp(10)
+            md_bg_color: app.theme_cls.primaryColor
+            cols: 1
+
+    MDBoxLayout:
+        md_bg_color: app.theme_cls.backgroundColor
+        pos_hint: {'center_x': .5, 'top': 1}
+        size_hint: 1, None
+        height: dp(65)
+        radius: dp(4)
+        padding: [dp(10)]
+        MDRelativeLayout:
+            MDButton:
+                pos_hint: {'left': 1, 'center_y': .5}
+                theme_width: 'Custom'
+                width: dp(55)
+                style: 'text'
+                on_press:
+                    app.nav.prev()
+                MDButtonIcon:
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                    icon: 'arrow-left'
+            MDButton:
+                pos_hint: {'right': 1, 'center_y': .5}
+                theme_width: 'Custom'
+                width: dp(55)
+                style: 'text'
+                on_press:
+#                    app.switch(self, 'home')
+                MDButtonIcon:
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                    icon: 'dots-vertical'
+            MDLabel:
+                text: 'Vendors'
+                halign: 'center'
+
+<VendorsTile@MDCard>:
+    size_hint_y: None
+    height: dp(280)
+    orientation: 'vertical'
+    padding: dp(10)
+    spacing: dp(10)
+    on_press: app.add_screen('vendor detail screen')
+    id: card
+    FitImage:
+        source: 'assets/images/img2.jpg'
+#        size_hint_x: .4
+        radius: [x/2 for x in card.radius]
+        orientation: 'vertical'
+    MDLabel:
+        adaptive_height: True
+        text: "Vendor 1"

@@ -1,15 +1,3 @@
-<MySwiper@MDSwiperItem>
-    image: "assets/images/intro1.png"
-    bg: "assets/images/login_page1.png"
-    RelativeLayout:
-        AsyncImage:
-            source: root.bg
-            allow_stretch: True
-        AsyncImage:
-            source: root.image
-            radius: [dp(20),]
-
-
 <OnBoardingScreenView>
     md_bg_color: app.theme_cls.backgroundColor
 
@@ -26,12 +14,13 @@
         y: root.height - self.height - dp(120)
         items_spacing: dp(5)
         MySwiper:
+            image: "assets/images/img4.jpg"
         MySwiper:
-            image: "assets/images/intro2.png"
-            bg: "assets/images/intro2b.png"
+            image: "assets/images/img1.jpg"
+#            bg: "assets/images/intro2b.png"
         MySwiper:
-            image: "assets/images/intro3.png"
-            bg: "assets/images/login_page1.png"
+            image: "assets/images/im3.jpg"
+#            bg: "assets/images/login_page1.png"
 
     MDBoxLayout:
         adaptive_height: True
@@ -66,3 +55,14 @@
             MDButtonText
                 text: 'Next'
                 pos_hint: {'center_x': .5, 'center_y': .5}
+
+<MySwiper@MDSwiperItem>:
+    image: "assets/images/img4.jpg"
+##    bg: "assets/images/login_page1.png"
+#    RelativeLayout:
+##        AsyncImage:
+##            source: root.bg
+##            allow_stretch: True
+    AsyncImage:
+        source: root.image
+#        radius: [dp(220)]
