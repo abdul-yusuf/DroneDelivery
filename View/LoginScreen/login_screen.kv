@@ -1,5 +1,17 @@
 <LoginScreenView>
     md_bg_color: app.theme_cls.backgroundColor
+    MDButton:
+        style: 'text'
+        pos_hint: {'center_x': .1, 'top': .98}
+        on_press: app.nav.prev()
+        MDButtonIcon:
+            icon: 'chevron-left'
+            style: 'standard'
+            size_hint: None, None
+#            size: "84dp", "84dp"
+            theme_font_size: "Custom"
+            font_size: "36sp"
+
     MDBoxLayout:
         orientation: 'vertical'
         pos_hint: {'center_y': .7}

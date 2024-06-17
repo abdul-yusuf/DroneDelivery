@@ -24,3 +24,39 @@ class SignupScreenController:
 
     def get_view(self) -> View.SignupScreen.signup_screen:
         return self.view
+
+
+    def do_signup(self, *args, **kwargs):
+        inst = self.view.ids
+
+        input1, first_name = self.do_verfy_field(inst.first_name)
+        input2, last_name = self.do_verfy_field(inst.last_name)
+        input3, email = self.do_verfy_field(inst.email)
+        input4, pwd = self.do_verify_pwd(inst)
+
+        if  input1 and input2 and input3 and input4:
+            print(first_name, last_name, email, pwd)
+            self.view.app.add_screen('mobile verification screen')
+
+
+    def do_verify_pwd(self, inst):
+        input4, pwd = self.do_verfy_field(inst.pwd)
+        input5, pwd2 = self.do_verfy_field(inst.pwd2)
+        if input5 and input4:
+            if pwd == pwd2:
+                return True, pwd
+            else:
+                inst.pwd.error = True
+                return False, pwd
+        return False, pwd
+
+
+    def do_verfy_field(self, inst):
+        if inst.text == '':
+            inst.error = True
+            return False, inst.text
+        elif inst.error:
+            print(inst.error)
+            return False, inst.text
+        else:
+            return True, inst.text

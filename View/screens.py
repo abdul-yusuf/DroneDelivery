@@ -1,5 +1,6 @@
 # The screen's dictionary contains the objects of the models and controllers
 # of the screens of the application.
+
 from Controller.signup_screen import SignupScreenController
 from Model.main_screen import MainScreenModel
 from Controller.main_screen import MainScreenController
@@ -16,27 +17,53 @@ from Model.otp_verification_screen import  OtpVerificationScreenModel
 from Controller.otp_verification_screen import OtpVerificationScreenController
 from Model.order_history_screen import OrderHistoryScreenModel
 from Controller.order_history_screen import OrderHistoryScreenController
+from Model.vendor_list_screen import VendorListScreenModel
+from Controller.vendor_list_screen import VendorListScreenController
+from Model.vendor_detail_screen import VendorDetailScreenModel
+from Controller.vendor_detail_screen import VendorDetailScreenController
+from Model.item_detail_screen import ItemDetailScreenModel
+from Controller.item_detail_screen import ItemDetailScreenController
 
 screens = {
-    'welcome screen': {
-        'model': WelcomeScreenModel,
-        'controller': WelcomeScreenController,
-        'kv': 'View/WelcomeScreen/welcome_screen.kv'
-    },
-    # 'order history screen': {
-    #     'model': OrderHistoryScreenModel,
-    #     'controller': OrderHistoryScreenController,
-    # },
     'main screen': {
         'model': MainScreenModel,
         'controller': MainScreenController,
         'kv': 'View/MainScreen/main_screen.kv'
+    },
+    'signup screen': {
+        'model': SignupScreenModel,
+        'controller': SignupScreenController,
+        'kv': 'View/SignupScreen/signup_screen.kv'
     },
     'on boarding screen': {
         'model': OnBoardingScreenModel,
         'controller': OnBoardingScreenController,
         'kv': 'View/OnBoardingScreen/on_boarding_screen.kv'
     },
+    'welcome screen': {
+        'model': WelcomeScreenModel,
+        'controller': WelcomeScreenController,
+        'kv': 'View/WelcomeScreen/welcome_screen.kv'
+    },
+    'vendor detail screen': {
+        'model': VendorDetailScreenModel,
+        'controller': VendorDetailScreenController,
+        'kv': 'View/VendorDetailScreen/vendor_detail_screen.kv'
+    },
+    'vendor list screen': {
+        'model': VendorListScreenModel,
+        'controller': VendorListScreenController,
+        'kv': 'View/VendorListScreen/vendor_list_screen.kv'
+    },
+    'item detail screen': {
+        'model': ItemDetailScreenModel,
+        'controller': ItemDetailScreenController,
+        'kv': 'View/ItemDetailScreen/item_detail_screen.kv'
+    },
+    # 'order history screen': {
+    #     'model': OrderHistoryScreenModel,
+    #     'controller': OrderHistoryScreenController,
+    # },
     'otp verification screen': {
         'model': OtpVerificationScreenModel,
         'controller': OtpVerificationScreenController,
@@ -51,10 +78,5 @@ screens = {
         'model': LoginScreenModel,
         'controller': LoginScreenController,
         'kv': 'View/LoginScreen/login_screen.kv'
-    },
-    'signup screen': {
-        'model': SignupScreenModel,
-        'controller': SignupScreenController,
-        'kv': 'View/SignupScreen/signup_screen.kv'
     },
 }

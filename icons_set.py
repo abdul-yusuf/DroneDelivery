@@ -1,9 +1,14 @@
+from kivy.core.clipboard import Clipboard
 from kivy.lang import Builder
 from kivy.properties import StringProperty
 from kivymd.icon_definitions import md_icons
+# from kivymd.toast import toast
 from kivymd.uix.screen import MDScreen
 from kivymd.app import MDApp
 from kivymd.uix.list import MDListItem
+from kivymd.uix.snackbar import MDSnackbar, MDSnackbarText
+from kivy.metrics import dp
+
 Builder.load_string(
 '''
 #:import images_path kivymd.images_path
@@ -11,6 +16,7 @@ Builder.load_string(
     MDListItemLeadingIcon:
         icon: root.icon
     MDListItemSupportingText:
+        id: item_text
         text: root.text
 
 <PreviousMDIcons>
@@ -48,6 +54,16 @@ Builder.load_string(
 class IconItem(MDListItem):
     icon = StringProperty()
     text = StringProperty()
+    def on_press(self):
+        Clipboard.copy(self.ids.item_text.text)
+        MDSnackbar(
+            MDSnackbarText(
+                text=f"'{self.ids.item_text.text}' Copied to clipboard",
+            ),
+            y=dp(24),
+            pos_hint={"center_x": 0.5},
+            size_hint_x=0.8,
+        ).open()
 
 class PreviousMDIcons(MDScreen):
     def set_list_md_icons(self, text="", search=False):

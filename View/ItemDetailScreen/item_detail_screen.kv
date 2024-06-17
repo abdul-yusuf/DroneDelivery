@@ -1,0 +1,88 @@
+<ItemDetailScreenView>
+    md_bg_color: app.theme_cls.backgroundColor
+
+    MDBoxLayout:
+        md_bg_color: app.theme_cls.backgroundColor
+        pos_hint: {'center_x': .5, 'top': 1}
+        size_hint: 1, None
+        height: dp(65)
+        radius: dp(4)
+        padding: [dp(10)]
+        MDRelativeLayout:
+            MDButton:
+                pos_hint: {'left': 1, 'center_y': .5}
+                theme_width: 'Custom'
+                width: dp(55)
+                style: 'text'
+                on_press:
+                    app.nav.prev()
+                MDButtonIcon:
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                    icon: 'arrow-left'
+            MDButton:
+                pos_hint: {'right': 1, 'center_y': .5}
+                theme_width: 'Custom'
+                width: dp(55)
+                style: 'text'
+                on_press:
+#                    app.switch(self, 'home')
+                MDButtonIcon:
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                    icon: 'dots-vertical'
+            MDLabel:
+                text: 'Item X'
+                halign: 'center'
+
+    MDBoxLayout:
+        size_hint_y: .9
+#        adaptive_height: True
+        orientation: 'vertical'
+        FitImage:
+            size_hint: 1, .6
+#            allow_stretch: True
+            source: 'assets/images/product1.jpg'
+            adaptive_size: True
+        MDLabel:
+            size_hint_y: .4
+#            adaptive_height: True
+            padding: dp(10)
+            markup: True
+            text: '[b][size=33]Title[/size][/b]\n[b]Price: ₦ 12,000.00[/b]\nLorem has been a standard for dummy text since 1550s'
+
+    MDRelativeLayout:
+        md_bg_color: app.theme_cls.backgroundColor
+        pos_hint: {'center_x': .5, 'top': .075}
+        adaptive_height: True
+        MDButton:
+            pos_hint: {'left': .8, 'center_y': .5}
+            theme_width: 'Custom'
+            width: dp(55)
+            style: 'text'
+            on_press: add_to_cart_btn.pos_hint = {'center_x': .5, 'top': .075}
+            MDButtonIcon:
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                icon: 'minus'
+        MDButton:
+            pos_hint: {'right': 1, 'center_y': .5}
+            theme_width: 'Custom'
+            width: dp(55)
+            style: 'text'
+            MDButtonIcon:
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                icon: 'plus'
+        MDLabel:
+            text: '3 QTY'
+            halign: 'center'
+
+    MDButton:
+        id: add_to_cart_btn
+        style: 'filled'
+        theme_width: 'Custom'
+        width: root.width - dp(40)
+        pos_hint: {'center_x': .5, 'top': .07}
+        radius: dp(8)
+        on_press: self.pos_hint = {'center_x': .5, 'top': -.75}
+        MDButtonText:
+            pos_hint: {'center_x': .5, 'center_y': .5}
+            text: 'Add to Cart'
+

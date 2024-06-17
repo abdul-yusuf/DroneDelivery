@@ -1,0 +1,64 @@
+<VendorDetailScreenView>
+    md_bg_color: app.theme_cls.backgroundColor
+    MDBoxLayout:
+        adaptive_height: True
+        orientation: 'vertical'
+        pos_hint: {'top': .92}
+
+        FitImage:
+            size_hint_y: None
+            height: dp(220)
+            source: 'assets/images/img2.jpg'
+        RecycleView:
+            id: rv2
+            viewclass: 'ItemTile'
+            key_size: 'height'
+            pos_hint: {'top': .78}
+#                bar_width: dp(16)
+#                scroll_type: ['bars', 'content']
+            data: [{},{},{},{},{},]
+            size_hint: 1, None
+            size: root.width, root.height - dp(120)
+#            on_scroll: print(dir(self))
+            RecycleGridLayout:
+                padding: dp(10), dp(10), dp(10), dp(10)
+                default_size: None, None
+                default_size_hint: 1, None
+                size_hint_y: None
+                height: self.minimum_height + dp(220)
+                spacing: dp(10)
+                md_bg_color: app.theme_cls.primaryColor
+                cols: 2
+
+    MDBoxLayout:
+        md_bg_color: app.theme_cls.backgroundColor
+        pos_hint: {'center_x': .5, 'top': 1}
+        size_hint: 1, None
+        height: dp(65)
+#        adaptive_height: True
+        radius: dp(4)
+        padding: [dp(10)]
+        MDRelativeLayout:
+            MDButton:
+                pos_hint: {'left': 1, 'center_y': .5}
+                theme_width: 'Custom'
+                width: dp(55)
+                style: 'text'
+                on_press:
+                    app.nav.prev()
+                MDButtonIcon:
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                    icon: 'arrow-left'
+            MDButton:
+                pos_hint: {'right': 1, 'center_y': .5}
+                theme_width: 'Custom'
+                width: dp(55)
+                style: 'text'
+                on_press:
+#                    app.switch(self, 'home')
+                MDButtonIcon:
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                    icon: 'dots-vertical'
+            MDLabel:
+                text: 'Vendors'
+                halign: 'center'

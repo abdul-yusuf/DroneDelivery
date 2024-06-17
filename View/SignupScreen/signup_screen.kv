@@ -4,6 +4,7 @@
     MDButton:
         style: 'text'
         pos_hint: {'center_x': .1, 'top': .98}
+        on_press: app.nav.prev()
         MDButtonIcon:
             icon: 'chevron-left'
             style: 'standard'
@@ -12,15 +13,14 @@
             theme_font_size: "Custom"
             font_size: "36sp"
 
-
     MDBoxLayout:
         orientation: 'vertical'
         pos_hint: {'top': .85}
         adaptive_height: True
+        padding: dp(10)
         MDBoxLayout:
             orientation: 'vertical'
             spacing: dp(24)
-            padding: dp(10)
             adaptive_height: True
             MDLabel:
                 text: 'Signup'
@@ -29,27 +29,55 @@
                 bold: True
 
             MDTextField:
+                id: first_name
+                MDTextFieldHelperText:
+                    id: HelperText
+                    mode: "on_focus"
+                    text: 'Enter First Name'
                 MDTextFieldHintText:
+                    id: HintText
                     text: 'First Name'
 
             MDTextField:
+                id: last_name
+                MDTextFieldHelperText:
+                    mode: "on_focus"
+                    text: 'Enter Last Name'
                 MDTextFieldHintText:
                     text: 'Last Name'
 
             MDTextField:
+                id: email
+                validator: "email"
+                MDTextFieldHelperText:
+                    mode: "on_focus"
+                    text: "user@gmail.com"
                 MDTextFieldHintText:
+                    id: HintText
                     text: 'Email'
 
-            MDTextField:
-                MDTextFieldHintText:
-                    text: 'Password'
 
             MDTextField:
+                id: pwd
+                MDTextFieldHelperText:
+                    mode: "on_focus"
+                    text: "Password can't be blank or didn't match"
+                MDTextFieldHintText:
+                    text: 'Password'
                 MDTextFieldTrailingIcon:
-                    icon: "eye-outline"
+                    icon: "eye-off-outline"
 #                    on_: print('Hidden')
+
+            MDTextField:
+                id: pwd2
+                MDTextFieldHelperText:
+                    mode: "on_focus"
+                    text: "Password can't be blank or didn't match"
                 MDTextFieldHintText:
                     text: 'Confirm Password'
+                MDTextFieldTrailingIcon:
+                    icon: "eye-off-outline"
+#                    on_: print('Hidden')
 
     MDButton:
         theme_width: 'Custom'
@@ -57,7 +85,9 @@
         pos_hint: {'center_x': .5, 'top':.2}
         radius: dp(4)
         style: 'filled'
-        on_press: app.add_screen('mobile verification screen')
+        on_press:
+            root.controller.do_signup()
+#            app.add_screen('mobile verification screen')
         MDButtonText:
             text: 'Sign Up'
             pos_hint: {'center_x': .5, 'center_y':.5}
