@@ -8,3 +8,5 @@ class ItemDetailScreenView(BaseScreenView):
         The view in this method tracks these changes and updates the UI
         according to these changes.
         """
+
+        self.controller.model.item_detail = self.controller.model.data

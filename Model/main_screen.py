@@ -7,8 +7,9 @@ class MainScreenModel(BaseScreenModel):
     :class:`~View.main_screen.MainScreen.MainScreenView` class.
     """
 
-    items_data = [
+    data = [
         {
+            'pk': '1',
             'name': 'Fendi Watch',
             'price': '10,000.00',
             'category': 'Restaurant',
@@ -16,6 +17,7 @@ class MainScreenModel(BaseScreenModel):
             'vendor': 'Amarya'
         },
         {
+            'pk': '2',
             'name': 'Fendi1 Watch',
             'price': '20,000.00',
             'category': 'Printing',
@@ -23,6 +25,7 @@ class MainScreenModel(BaseScreenModel):
             'vendor': 'Amarya'
         },
         {
+            'pk': '3',
             'name': 'Fendi2 Watch',
             'price': '11,000.00',
             'category': 'Restaurant',
@@ -30,6 +33,7 @@ class MainScreenModel(BaseScreenModel):
             'vendor': 'Amarya'
         },
         {
+            'pk': '4',
             'name': 'Fendi3 Watch',
             'price': '10,200.00',
             'category': 'Restaurant',
@@ -37,6 +41,7 @@ class MainScreenModel(BaseScreenModel):
             'vendor': "Ma'ata"
         },
         {
+            'pk': '5',
             'name': 'Fendi4 Watch',
             'price': '30,000.00',
             'category': 'Bookshop',
@@ -62,3 +67,9 @@ class MainScreenModel(BaseScreenModel):
             'name': 'Fast Foood'
         },
     ]
+
+    items_data = []
+
+    cart_items = []
+
+    is_remove_item = False

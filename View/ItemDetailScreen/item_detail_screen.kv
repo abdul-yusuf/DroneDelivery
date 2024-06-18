@@ -1,6 +1,14 @@
 <ItemDetailScreenView>
     md_bg_color: app.theme_cls.backgroundColor
-
+    qty: 1
+    on_pre_enter:
+        self.controller.do_check_if_item_in_cart()
+    on_enter:
+        self.controller.update_qty()
+        title.text = self.controller.model.data['name']
+        details.name = self.controller.model.data['name']
+        details.price = self.controller.model.data['price']
+        details.description = self.controller.model.data['description']
     MDBoxLayout:
         md_bg_color: app.theme_cls.backgroundColor
         pos_hint: {'center_x': .5, 'top': 1}
@@ -30,7 +38,8 @@
                     pos_hint: {'center_x': .5, 'center_y': .5}
                     icon: 'dots-vertical'
             MDLabel:
-                text: 'Item X'
+                id: title
+                text: "Title"
                 halign: 'center'
 
     MDBoxLayout:
@@ -38,8 +47,8 @@
 #        adaptive_height: True
         orientation: 'vertical'
         FitImage:
+            id: image
             size_hint: 1, .6
-#            allow_stretch: True
             source: 'assets/images/product1.jpg'
             adaptive_size: True
         MDLabel:
@@ -47,18 +56,23 @@
 #            adaptive_height: True
             padding: dp(10)
             markup: True
-            text: '[b][size=33]Title[/size][/b]\n[b]Price: ₦ 12,000.00[/b]\nLorem has been a standard for dummy text since 1550s'
+            id: details
+            name: 'Title'
+            price: '12,000.00'
+            description: 'Lorem has been a standard for dummy text since 1550s'
+            text: f'[b][size=33]{self.name}[/size][/b]\n[b]Price: ₦ {self.price}[/b]\n{self.description}'
 
     MDRelativeLayout:
         md_bg_color: app.theme_cls.backgroundColor
         pos_hint: {'center_x': .5, 'top': .075}
         adaptive_height: True
         MDButton:
+            id: minus_btn
             pos_hint: {'left': .8, 'center_y': .5}
             theme_width: 'Custom'
             width: dp(55)
             style: 'text'
-            on_press: add_to_cart_btn.pos_hint = {'center_x': .5, 'top': .075}
+            on_press: root.controller.do_remove_item_from_cart()
             MDButtonIcon:
                 pos_hint: {'center_x': .5, 'center_y': .5}
                 icon: 'minus'
@@ -67,11 +81,12 @@
             theme_width: 'Custom'
             width: dp(55)
             style: 'text'
+            on_press: root.controller.do_add_item_to_cart()
             MDButtonIcon:
                 pos_hint: {'center_x': .5, 'center_y': .5}
                 icon: 'plus'
         MDLabel:
-            text: '3 QTY'
+            text: f'{root.qty} QTY'
             halign: 'center'
 
     MDButton:
@@ -81,7 +96,7 @@
         width: root.width - dp(40)
         pos_hint: {'center_x': .5, 'top': .07}
         radius: dp(8)
-        on_press: self.pos_hint = {'center_x': .5, 'top': -.75}
+        on_press: root.controller.do_add_item_to_cart()
         MDButtonText:
             pos_hint: {'center_x': .5, 'center_y': .5}
             text: 'Add to Cart'
