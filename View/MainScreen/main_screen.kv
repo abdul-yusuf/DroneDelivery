@@ -1,6 +1,9 @@
+#:import ObjectProperty kivy.properties.ObjectProperty
 <MainScreenView>
     md_bg_color: app.theme_cls.backgroundColor
-    on_enter: self.controller.do_populate_chip_box()
+    on_pre_enter: self.controller.do_populate_chip_box()
+    on_enter: rv.data = self.controller.model.items_data
+    id: base_root
     MDScreenManager:
         id: home_screen_manager
         MDScreen:
@@ -37,7 +40,7 @@
                     Rv:
                         id: rv
                         viewclass: 'ItemTile'
-                        data: root.controller.model.items_data
+#                        data: root.controller.model.items_data
                         size_hint: 1, None
                         size: root.width, root.height - dp(40)
                         MDRecycleGridLayout:
@@ -57,6 +60,9 @@
 
         MDScreen:
             name: 'cart'
+            on_enter:
+                cart_info.text = f"Item Qty: {len(rv2.data)}\n\n[b]TOTAL: ₦ {sum(float(x['price'].split(',')[0]+x['price'].split(',')[1]) if x['qty']==1 else float(x['price'].split(',')[0]+x['price'].split(',')[1])*int(x['qty']) for x in rv2.data)}[/b]"
+
             RecycleView:
                 id: rv2
                 viewclass: 'CartItemTile'
@@ -64,7 +70,7 @@
                 pos_hint: {'top': .78}
 #                bar_width: dp(16)
 #                scroll_type: ['bars', 'content']
-                data: [{},{},{},{},{},]
+                data: root.controller.model.cart_items
                 size_hint: 1, None
                 size: root.width, root.height - dp(120)
                 RecycleGridLayout:
@@ -97,6 +103,7 @@
                     adaptive_height: True
                     padding: dp(10)
                     MDLabel:
+                        id: cart_info
                         adaptive_height: True
                         markup: True
                         text: "Item Qty: 2\n\n[b]TOTAL: ₦ 12,000.00[/b]"
@@ -222,8 +229,9 @@
     size_hint_y: None
     height: dp(280)
     orientation: 'vertical'
-    on_press: app.add_screen('item detail screen')
-    pk: 1
+#    base_root: ObjectProperty()
+#    on_press: base_root.controller.do_open_item_detail(self)
+    pk: '1'
     name: 'asdasd'
     price: '2000'
     category: 'Restaurant'
@@ -245,8 +253,10 @@
             cols: 2
             Widget:
             MDButton:
+#                id: btn
                 theme_width: 'Custom'
                 width: dp(55)
+                on_press: root.root_x.do_add_item_to_cart(root.pk)
                 MDButtonIcon:
                     pos_hint: {'center_x': .5, 'center_y': .5}
                     icon: 'cart-outline'
@@ -256,6 +266,10 @@
     height: dp(180)
     orientation: 'vertical'
     id: card
+    pk: '1'
+    name: ''
+    price: ''
+    qty: 1
     MDBoxLayout:
         spacing: dp(10)
         padding: dp(10)
@@ -266,7 +280,7 @@
             orientation: 'vertical'
         MDLabel:
             adaptive_height: True
-            text: "First Item\n₦ 12,000.00"
+            text: f"{root.name}\n₦ {root.price}"
     MDBoxLayout:
         adaptive_height: True
         padding: dp(10)
@@ -276,16 +290,18 @@
             MDButton:
                 theme_width: 'Custom'
                 width: dp(55)
+                on_press: root.root_x.do_remove_item_from_cart(root.pk)
                 MDButtonIcon:
                     pos_hint: {'center_x': .5, 'center_y': .5}
                     icon: 'minus'
 #            MDBoxLayout:
             MDLabel:
                 halign: 'center'
-                text: '3 Qty'
+                text: f'{root.qty} Qty'
             MDButton:
                 theme_width: 'Custom'
                 width: dp(55)
+                on_press: root.root_x.do_add_item_to_cart(root.pk)
                 MDButtonIcon:
                     pos_hint: {'center_x': .5, 'center_y': .5}
                     icon: 'plus'

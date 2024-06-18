@@ -13,6 +13,12 @@ class MainScreenView(BaseScreenView):
         The view in this method tracks these changes and updates the UI
         according to these changes.
         """
+        if self.model.is_remove_item:
+            self.controller.remove_item_from_cart()
+            print('removing Item')
+            self.model.is_remove_item = False
+        else:
+            self.controller.add_item_to_cart()
 
 
 class BottomNav(MDBoxLayout):

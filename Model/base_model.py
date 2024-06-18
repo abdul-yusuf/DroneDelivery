@@ -31,3 +31,32 @@ class BaseScreenModel:
             if observer.name == name_screen:
                 observer.model_is_changed()
                 break
+
+    def pass_attribute(self, name_screen: str, data, attr=None):
+        """
+        args:
+            name_screen: str
+            data: (list, dict)
+        """
+        for observer in self._observers:
+            if observer.name == name_screen:
+                if attr:
+                    try:
+                        exec(f'observer.model.{attr} = data')
+                    except TypeError as e:
+                        print(e)
+                        eval(f'observer.model.{attr} = data')
+                else:
+                    observer.model.data = data
+                break
+
+    def append_attribute(self, name_screen: str, data):
+        """
+        args:
+            name_screen: str
+            data: (str, list, dict)
+        """
+        for observer in self._observers:
+            if observer.name == name_screen:
+                observer.model.data = data.append(data)
+                break
