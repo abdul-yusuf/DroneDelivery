@@ -1,6 +1,8 @@
 import asynckivy
 from kivymd.uix.chip import MDChip, MDChipText
 from kivymd.uix.chip.chip import LabelTextContainer
+from kivymd.uix.snackbar import MDSnackbar, MDSnackbarText
+from kivy.metrics import dp
 
 from View.MainScreen.main_screen import MainScreenView
 from kivy.clock import Clock
@@ -124,12 +126,28 @@ class MainScreenController:
                         self.view.ids.rv2.data[index] = item
                         print('Item Added')
                         is_added = True
+                        MDSnackbar(
+                            MDSnackbarText(
+                                text="Item updated.",
+                            ),
+                            y=dp(24),
+                            pos_hint={"center_x": 0.5, "top": .9},
+                            size_hint_x=0.8,
+                        ).open()
                         break
                 if not is_added:
                     item = item_data
                     item['root_x'] = self
                     item['qty'] = 1
                     self.view.ids.rv2.data.append(item)
+                    MDSnackbar(
+                        MDSnackbarText(
+                            text="Item added to cart.",
+                        ),
+                        y=dp(24),
+                        pos_hint={"center_x": 0.5, "top": .9},
+                        size_hint_x=0.8,
+                    ).open()
                     print('Item Added2')
             except Exception as e:
                 print(e)
@@ -151,11 +169,26 @@ class MainScreenController:
                     if self.model.data == item['pk']:
                         if item['qty'] <= 1:
                             self.view.ids.rv2.data.remove(item)
+                            MDSnackbar(
+                                MDSnackbarText(
+                                    text="Item removed from cart.",
+                                ),
+                                y=dp(24),
+                                pos_hint={"center_x": 0.5, "top": .9},
+                                size_hint_x=0.8,
+                            ).open()
                         else:
                             index = self.view.ids.rv2.data.index(item)
                             item['qty'] -= 1
                             self.view.ids.rv2.data[index] = item
-                            print('Item Removed')
+                            MDSnackbar(
+                                MDSnackbarText(
+                                    text="Item updated.",
+                                ),
+                                y=dp(24),
+                                pos_hint={"center_x": 0.5, "top": .9},
+                                size_hint_x=0.8,
+                            ).open()
                         break
             except Exception as e:
                 print(e)
