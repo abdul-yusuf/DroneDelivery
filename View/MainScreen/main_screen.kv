@@ -61,6 +61,7 @@
         MDScreen:
             name: 'cart'
             on_enter:
+                root.controller.do_check_if_cart_item()
                 cart_info.text = f"Item Qty: {len(rv2.data)}\n\n[b]TOTAL: ₦ {sum(float(x['price'].split(',')[0]+x['price'].split(',')[1]) if x['qty']==1 else float(x['price'].split(',')[0]+x['price'].split(',')[1])*int(x['qty']) for x in rv2.data)}[/b]"
 
             RecycleView:
@@ -108,14 +109,22 @@
                         markup: True
                         text: "Item Qty: 2\n\n[b]TOTAL: ₦ 12,000.00[/b]"
             MDButton:
-                style: 'filled'
+                id: checkout_btn
+                disabled: True
+#                style: 'outlined'
                 theme_width: 'Custom'
                 width: root.width-dp(20)
                 pos_hint: {'center_x': .5, 'center_y': .12}
                 radius: dp(8)
+                on_release: bottom_sheet.set_state("toggle")
+#                on_press: root.controller.do_go_to_checkout()
                 MDButtonText:
                     pos_hint: {'center_x': .5, 'center_y': .5}
                     text: 'Checkout'
+            MDBottomSheet:
+                MDBottomSheetDragHandle:
+                    drag_handle_color: "white"
+
         MDScreen:
             name: 'profile'
             MDListItem:
@@ -149,6 +158,7 @@
                             MDListItemHeadlineText:
                                 text: 'Edit Profile'
                         MDListItem:
+                            on_press: app.add_screen('order history screen')
                             MDListItemHeadlineText:
                                 text: 'Order history'
                         MDListItem:
@@ -176,6 +186,197 @@
 
     BottomNav:
         screen_manager: root.ids.home_screen_manager
+
+    MDBottomSheet:
+        id: bottom_sheet
+        shadow_softness: 100
+#        md_bg_color: app.theme_cls.ba
+        sheet_type: "standard"
+        size_hint_y: None
+#        height: self.minimum_height + dp(20)
+        adaptive_height: True
+#        height: dp(350)
+        padding: dp(10)
+        spacing: dp(30)
+
+        MDBottomSheetDragHandle:
+            drag_handle_color: "grey"
+            MDBottomSheetDragHandleTitle:
+#                text: "Select type map"
+                pos_hint: {"center_y": .5}
+            MDBottomSheetDragHandleButton:
+                icon: "close"
+                on_press: bottom_sheet.set_state("toggle")
+
+        MDBoxLayout:
+            id: box_container00
+            adaptive_height: True
+            padding: [dp(10), dp(10)]
+            MDLabel:
+                id: address_label
+                markup: True
+                text: "Home\n355,kamasasd rd,Loremn Ipsum has been here"
+
+            MDButton:
+                id: address_btn
+                pos_hint: {'center_x': .5, 'center_y': .8}
+                radius: dp(8)
+                on_release: root.controller.do_set_dialog()
+                MDButtonText:
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                    text: 'Change'
+
+        MDBoxLayout:
+            id: box_container0
+            adaptive_height: True
+            padding: [dp(10), dp(1)]
+            MDLabel:
+                halign: 'left'
+                text: "Delivery ETA "
+            MDLabel:
+                id: eta_label
+                halign: 'right'
+                text: "10 mins"
+
+        MDBoxLayout:
+            id: box_container0
+            adaptive_height: True
+            padding: [dp(10), dp(1)]
+            MDLabel:
+                halign: 'left'
+                text: "Total Weight "
+            MDLabel:
+                id: total_weight_label
+                halign: 'right'
+                text: "10kg"
+
+        MDDivider:
+            size_hint_x: 1
+            orientation: "horizontal"
+
+        MDBoxLayout:
+            id: box_container1
+            adaptive_height: True
+            padding: [dp(10), dp(1)]
+            MDLabel:
+                text: "Total "
+                halign: 'left'
+            MDLabel:
+                id: checkout_total
+                markup: True
+                text: f"₦ {sum(float(x['price'].split(',')[0]+x['price'].split(',')[1]) if x['qty']==1 else float(x['price'].split(',')[0]+x['price'].split(',')[1])*int(x['qty']) for x in rv2.data)}"
+#                text: "₦15,000.00"
+                halign: 'right'
+
+        MDDivider:
+            size_hint_x: 1
+            orientation: "horizontal"
+
+        MDBoxLayout:
+            id: box_container2
+            adaptive_height: True
+            padding: [dp(10), dp(1)]
+            orientation: 'horizontal'
+
+            MDButton:
+                id: order_tn
+                pos_hint: {'center_x': .5}
+                radius: dp(8)
+                theme_style: 'Custom'
+                style: 'text'
+                md_bg_color: app.theme_cls.primaryColor
+                color: 'white'
+                on_press: bottom_sheet2.set_state("toggle")
+                MDButtonText:
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                    text: 'Pay using:\n[size=34][b]Card[/b][/size]'
+            Widget:
+            MDButton:
+                id: order_btn
+                pos_hint: {'center_x': .5}
+                radius: dp(8)
+                theme_style: 'Custom'
+                theme_width: 'Custom'
+                size_hint_x: None
+                width: dp(60)
+                md_bg_color: app.theme_cls.primaryColor
+                color: 'white'
+                on_press:
+                    root.controller.do_set_order({'items':rv2.data,
+                    'total': sum(float(x['price'].split(',')[0]+x['price'].split(',')[1]) if x['qty']==1 else float(x['price'].split(',')[0]+x['price'].split(',')[1])*int(x['qty']) for x in rv2.data),
+                    'items_qty': len(rv2.data),
+                    'total_weight': total_weight_label.text,
+                    'eta': eta_label.text,
+                    'address': address_label.text,
+                    'payment_method': 'Card'
+                    })
+                MDButtonText:
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                    text: 'Order'
+
+        Widget:
+
+    MDBottomSheet:
+        id: bottom_sheet2
+        shadow_softness: 100
+#        md_bg_color: app.theme_cls.ba
+        sheet_type: "modal"
+        size_hint_y: None
+#        height: self.minimum_height + dp(20)
+        adaptive_height: True
+#        height: dp(350)
+        padding: dp(10)
+        spacing: dp(30)
+
+        MDBottomSheetDragHandle:
+            drag_handle_color: "grey"
+        MDLabel:
+            text: "Payment Method"
+            pos_hint: {"center_y": .5}
+            halign: 'center'
+            bold: True
+
+        MDBoxLayout:
+            id: box_container
+            adaptive_height: True
+            padding: [dp(10), dp(1)]
+            spacing: dp(10)
+            MDButton:
+                id: cash_btn
+                radius: dp(8)
+                MDButtonText:
+                    text: 'Cash'
+                MDButtonIcon:
+                    icon: 'cash'
+            MDButton:
+                id: card_btn
+                radius: dp(8)
+                MDButtonText:
+                    text: 'Card'
+                MDButtonIcon:
+                    icon: 'card'
+            MDButton:
+                id: paypal_btn
+                radius: dp(8)
+                MDButtonText:
+                    text: 'PayPal'
+                MDButtonIcon:
+                    icon: 'card'
+
+        MDButton:
+            id: select_btn
+            theme_width: 'Custom'
+            size_hint_x: .9
+            pos_hint: {'center_x': .5, 'center_y': .8}
+            radius: dp(8)
+            on_press: bottom_sheet2.set_state("toggle")
+            MDButtonText:
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                text: 'Select'
+
+
+        Widget:
+
 
 <BottomNav>:
     md_bg_color: app.theme_cls.backgroundColor
@@ -237,8 +438,10 @@
     category: 'Restaurant'
     vendor: 'Amarya'
     discription: 'Lorem'
+    image: 'assets/images/product1.jpg'
+
     FitImage:
-        source: 'assets/images/product1.jpg'
+        source: root.image
         size_hint_y: .6
         radius: self.parent.radius
     MDBoxLayout:
@@ -270,11 +473,13 @@
     name: ''
     price: ''
     qty: 1
+    image: 'assets/images/product1.jpg'
+
     MDBoxLayout:
         spacing: dp(10)
         padding: dp(10)
         FitImage:
-            source: 'assets/images/product1.jpg'
+            source: root.image
             size_hint_x: .4
             radius: card.radius
             orientation: 'vertical'
@@ -315,3 +520,4 @@
         pos_hint: {"center_x": .5, "center_y": .5}
         MDChipText:
             text: "MDChip"
+

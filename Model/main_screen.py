@@ -10,22 +10,29 @@ class MainScreenModel(BaseScreenModel):
     data = [
         {
             'pk': '1',
+            'image': 'assets/images/product1.jpg',
             'name': 'Fendi Watch',
             'price': '10,000.00',
             'category': 'Restaurant',
             'description': 'Lorem has been around for a thousands of decades',
-            'vendor': 'Amarya'
+            'vendor': 'Amarya',
+            'weight': '1',
+            'unit': 'kg'
         },
         {
             'pk': '2',
+            'image': 'assets/images/product2.jpg',
             'name': 'Fendi1 Watch',
             'price': '20,000.00',
             'category': 'Printing',
             'description': 'Lorem has been around for a thousands of decades',
-            'vendor': 'Amarya'
+            'vendor': 'Amarya',
+            'weight': '1',
+            'unit': 'kg'
         },
         {
             'pk': '3',
+            'image': 'assets/images/product3.jpg',
             'name': 'Fendi2 Watch',
             'price': '11,000.00',
             'category': 'Restaurant',
@@ -34,19 +41,25 @@ class MainScreenModel(BaseScreenModel):
         },
         {
             'pk': '4',
+            'image': 'assets/images/product4.jpg',
             'name': 'Fendi3 Watch',
             'price': '10,200.00',
             'category': 'Restaurant',
             'description': 'Lorem has been around for a thousands of decades',
-            'vendor': "Ma'ata"
+            'vendor': "Ma'ata",
+            'weight': '100',
+            'unit': 'grams'
         },
         {
             'pk': '5',
+            'image': 'assets/images/product5.jpg',
             'name': 'Fendi4 Watch',
             'price': '30,000.00',
             'category': 'Bookshop',
             'description': 'Lorem has been around for a thousands of decades',
-            'vendor': 'Amarya'
+            'vendor': 'Amarya',
+            'weight': '100',
+            'unit': 'grams'
         },
     ]
 
@@ -68,8 +81,10 @@ class MainScreenModel(BaseScreenModel):
         },
     ]
 
-    items_data = []
+    items_data: list = []
 
-    cart_items = []
+    cart_items: list = []
 
-    is_remove_item = False
+    is_remove_item: bool = False
+
+    order_data: dict = {}

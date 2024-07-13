@@ -48,7 +48,17 @@ requirements = python3,
     materialyoucolor,
     exceptiongroup,
     asyncgui,
-    asynckivy
+    asynckivy,
+    plyer,
+    certifi,
+    click,
+    decorator,
+    ratelim,
+    geocoder,
+    pillow,
+    requests,
+    kivy_garden.mapview,
+    multitasking,
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes

@@ -37,6 +37,7 @@ DEBUG=1 python main.py
 # from kivy.factory import Factory
 # from kivy.uix.modalview import ModalView
 # from kivy.clock import Clock
+# from kivy.properties import ListProperty
 #
 # class Navigation:
 #     def __init__(self, master: MDScreenManager):
@@ -69,7 +70,7 @@ DEBUG=1 python main.py
 #             if self.count == 2:
 #                 self.master.stop()
 #
-#     def add_screen(self, screen_name):
+#     def add_screen(self, screen_name, *args):
 #         self.screens.append(screen_name)
 #         return True
 #
@@ -85,7 +86,7 @@ DEBUG=1 python main.py
 #
 # class MKT(MDApp):
 #     KV_DIRS = [os.path.join(os.getcwd(), "View")]
-#
+#     AUTORELOADER_IGNORE_PATTERNS = ListProperty(["*.pyc", "*__pycache__*", "*.png"])
 #     def build_app(self) -> MDScreenManager:
 #         """
 #         In this method, you don't need to change anything other than the
@@ -135,7 +136,7 @@ DEBUG=1 python main.py
 #             self.nav.prev()
 #             # self.manager_screens.current = self.nav.back()
 #
-#     def add_screen(self, name: str, *args):
+#     def add_screen(self, name: str, *args, **kwargs):
 #         # print(name, View.screens.screens.keys())
 #         print(name)
 #         if name in View.screens.screens.keys():
@@ -173,7 +174,7 @@ You can read more about this template at the links below:
 https://github.com/HeaTTheatR/LoginAppMVC
 https://en.wikipedia.org/wiki/Model–view–controller
 """
-#
+
 from kivymd.app import MDApp
 from kivymd.uix.screenmanager import MDScreenManager
 
@@ -296,4 +297,7 @@ class MKT(MDApp):
         if keyboard == 27:
             self.nav.prev()
             # self.manager_screens.current = self.nav.back()
+            return True
+        return False
+
 MKT().run()

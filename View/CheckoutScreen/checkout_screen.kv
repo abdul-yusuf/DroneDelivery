@@ -1,0 +1,74 @@
+
+<CheckoutScreenView>
+    md_bg_color: app.theme_cls.backgroundColor
+    MDButton:
+        id: checkout_btn
+#        style: 'outlined'
+        theme_width: 'Custom'
+        width: root.width-dp(20)
+        pos_hint: {'center_x': .5, 'center_y': .8}
+        radius: dp(8)
+#        disabled: True
+        on_press: bottom_sheet.set_state("toggle")
+        MDButtonText:
+            pos_hint: {'center_x': .5, 'center_y': .5}
+            text: 'Checkout'
+
+    MDBottomSheet:
+        id: bottom_sheet
+        shadow_softness: 100
+#        md_bg_color: app.theme_cls.ba
+        sheet_type: "modal"
+        size_hint_y: None
+#        height: self.minimum_height + dp(20)
+        adaptive_height: True
+#        height: dp(350)
+        padding: dp(10)
+        spacing: dp(30)
+
+        MDLabel:
+            text: "Payment Method"
+            pos_hint: {"center_y": .5}
+            halign: 'center'
+            bold: True
+
+        MDBoxLayout:
+            id: box_container
+            adaptive_height: True
+            padding: [dp(10), dp(1)]
+            spacing: dp(10)
+            MDButton:
+                id: checkout_btn
+                radius: dp(8)
+                MDButtonText:
+                    text: 'Cash'
+                MDButtonIcon:
+                    icon: 'cash'
+            MDButton:
+                id: checkout_btn
+                radius: dp(8)
+                MDButtonText:
+                    text: 'Select'
+                MDButtonIcon:
+                    icon: 'card'
+            MDButton:
+                id: checkout_btn
+                radius: dp(8)
+                MDButtonText:
+                    text: 'PayPal'
+                MDButtonIcon:
+                    icon: 'card'
+
+        MDButton:
+            id: checkout_btn
+            theme_width: 'Custom'
+            size_hint_x: .9
+            pos_hint: {'center_x': .5, 'center_y': .8}
+            radius: dp(8)
+            MDButtonText:
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                text: 'Select'
+
+
+        Widget:
+

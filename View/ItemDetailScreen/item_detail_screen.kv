@@ -4,11 +4,14 @@
     on_pre_enter:
         self.controller.do_check_if_item_in_cart()
     on_enter:
+        print(self.controller.model.item_detail)
         self.controller.update_qty()
         title.text = self.controller.model.data['name']
         details.name = self.controller.model.data['name']
         details.price = self.controller.model.data['price']
         details.description = self.controller.model.data['description']
+        root.controller.do_load_image()
+
     MDBoxLayout:
         md_bg_color: app.theme_cls.backgroundColor
         pos_hint: {'center_x': .5, 'top': 1}
@@ -49,7 +52,7 @@
         FitImage:
             id: image
             size_hint: 1, .6
-            source: 'assets/images/product1.jpg'
+#            source: self.controller.model.item_detail['image']
             adaptive_size: True
         MDLabel:
             size_hint_y: .4

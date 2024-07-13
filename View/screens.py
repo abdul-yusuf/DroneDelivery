@@ -23,8 +23,27 @@ from Model.vendor_detail_screen import VendorDetailScreenModel
 from Controller.vendor_detail_screen import VendorDetailScreenController
 from Model.item_detail_screen import ItemDetailScreenModel
 from Controller.item_detail_screen import ItemDetailScreenController
+from Model.checkout_screen import CheckoutScreenModel
+from Controller.checkout_screen import CheckoutScreenController
+from Model.edit_profile_screen import EditProfileScreenModel
+from Controller.edit_profile_screen import EditProfileScreenController
+from Model.faq_screen import FaqScreenModel
+from Controller.faq_screen import FaqScreenController
+from Model.aboutus_screen import AboutusScreenModel
+from Controller.aboutus_screen import AboutusScreenController
+from Model.contactus_screen import ContactusScreenModel
+from Controller.contactus_screen import ContactusScreenController
+from Model.feedback_screen import FeedbackScreenModel
+from Controller.feedback_screen import FeedbackScreenController
+from Model.track_order_screen import TrackOrderScreenModel
+from Controller.track_order_screen import TrackOrderScreenController
 
 screens = {
+    'track order screen': {
+        'model': TrackOrderScreenModel,
+        'controller': TrackOrderScreenController,
+        'kv': 'View/TrackOrderScreen/track_order_screen.kv'
+    },
     'main screen': {
         'model': MainScreenModel,
         'controller': MainScreenController,
@@ -60,10 +79,11 @@ screens = {
         'controller': ItemDetailScreenController,
         'kv': 'View/ItemDetailScreen/item_detail_screen.kv'
     },
-    # 'order history screen': {
-    #     'model': OrderHistoryScreenModel,
-    #     'controller': OrderHistoryScreenController,
-    # },
+    'order history screen': {
+        'model': OrderHistoryScreenModel,
+        'controller': OrderHistoryScreenController,
+        'kv': 'View/OrderHistoryScreen/order_history_screen.kv'
+    },
     'otp verification screen': {
         'model': OtpVerificationScreenModel,
         'controller': OtpVerificationScreenController,
@@ -79,4 +99,24 @@ screens = {
         'controller': LoginScreenController,
         'kv': 'View/LoginScreen/login_screen.kv'
     },
+    # 'aboutus screen': {
+    #     'model': AboutusScreenModel,
+    #     'controller': AboutusScreenController,
+    # },
+    # 'checkout screen': {
+    #     'model': CheckoutScreenModel,
+    #     'controller': CheckoutScreenController,
+    # },
+    # 'contactus screen': {
+    #     'model': ContactusScreenModel,
+    #     'controller': ContactusScreenController,
+    # },
+    # 'faq screen': {
+    #     'model': FaqScreenModel,
+    #     'controller': FaqScreenController,
+    # },
+    # 'feedback screen': {
+    #     'model': FeedbackScreenModel,
+    #     'controller': FeedbackScreenController,
+    # },
 }

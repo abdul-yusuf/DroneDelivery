@@ -1,26 +1,26 @@
 import importlib
 
-import View.SignupasScreen.signupas_screen
+import View.AboutusScreen.aboutus_screen
 
 # We have to manually reload the view module in order to apply the
 # changes made to the code on a subsequent hot reload.
 # If you no longer need a hot reload, you can delete this instruction.
-importlib.reload(View.SignupasScreen.signupas_screen)
+importlib.reload(View.AboutusScreen.aboutus_screen)
 
 
 
 
-class SignupasScreenController:
+class AboutusScreenController:
     """
-    The `SignupasScreenController` class represents a controller implementation.
+    The `AboutusScreenController` class represents a controller implementation.
     Coordinates work of the view with the model.
     The controller implements the strategy pattern. The controller connects to
     the view to control its actions.
     """
 
     def __init__(self, model):
-        self.model = model  # Model.signupas_screen.SignupasScreenModel
-        self.view = View.SignupasScreen.signupas_screen.SignupasScreenView(controller=self, model=self.model)
+        self.model = model  # Model.aboutus_screen.AboutusScreenModel
+        self.view = View.AboutusScreen.aboutus_screen.AboutusScreenView(controller=self, model=self.model)
 
-    def get_view(self) -> View.SignupasScreen.signupas_screen:
+    def get_view(self) -> View.AboutusScreen.aboutus_screen:
         return self.view
