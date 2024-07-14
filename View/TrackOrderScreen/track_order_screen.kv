@@ -1,0 +1,115 @@
+#:import MapSource kivy_garden.mapview.MapSource
+<TrackOrderScreenView>
+    md_bg_color: app.theme_cls.backgroundColor
+    MDBoxLayout:
+        md_bg_color: app.theme_cls.backgroundColor
+        pos_hint: {'center_x': .5, 'top': 1}
+        size_hint: 1, None
+        height: dp(65)
+        radius: dp(4)
+        padding: [dp(10)]
+        MDRelativeLayout:
+            MDButton:
+                pos_hint: {'left': 1, 'center_y': .5}
+                theme_width: 'Custom'
+                width: dp(55)
+                style: 'text'
+                on_press:
+                    app.nav.prev()
+                MDButtonIcon:
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                    icon: 'arrow-left'
+            MDButton:
+                pos_hint: {'right': 1, 'center_y': .5}
+                theme_width: 'Custom'
+                width: dp(55)
+                style: 'text'
+                on_press:
+#                    app.switch(self, 'home')
+                MDButtonIcon:
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                    icon: 'dots-vertical'
+            MDLabel:
+                text: 'Order ID: #23989283'
+                halign: 'center'
+    MDScrollView:
+        do_scroll_x: False
+        do_scroll_y: True
+        size_hint: 1, None
+        size: root.width, root.height - dp(60)
+        MDBoxLayout:
+            orientation: 'vertical'
+            MapView:
+                id: mapview
+                lat: 11.15358
+                lon: 7.651
+                zoom: 18
+                size_hint: 95, .5
+                pos_hint: {"center_x": .25, "top": .9}
+
+#            MDBoxLayout:
+#                pos_hint: {'top': .38}
+#                adaptive_height: True
+#                padding: dp(5)
+#                spacing: dp(10)
+#                MDLabel:
+#                    text: 'Latitude: 7.323431'
+#                MDLabel:
+#                    halign: 'right'
+#                    text: 'Longitute: 7.323431'
+
+            MDBoxLayout:
+                pos_hint: {'top': .35}
+                adaptive_height: True
+                padding: [dp(10), dp(25)]
+                spacing: dp(10)
+                orientation: 'vertical'
+                MDCard:
+                    padding: dp(10)
+                    adaptive_height: True
+                    MDLabel:
+                        adaptive_height: True
+                        text: 'Latitude: 7.323431'
+                    MDLabel:
+                        halign: 'right'
+                        text: 'Longitute: 7.323431'
+
+                MDCard:
+                    padding: dp(10)
+                    adaptive_height: True
+                    MDLabel:
+                        text: 'ETA'
+                    MDLabel:
+                        halign: 'right'
+                        adaptive_height: True
+                        text: '10-35 min'
+
+                MDCard:
+                    padding: dp(10)
+                    adaptive_height: True
+                    MDLabel:
+                        text: 'Date'
+                    MDLabel:
+                        halign: 'right'
+                        adaptive_height: True
+                        text: '21 June, 2024'
+
+                MDCard:
+                    padding: dp(10)
+                    adaptive_height: True
+                    MDLabel:
+                        text: 'Payment Method'
+                    MDLabel:
+                        halign: 'right'
+                        adaptive_height: True
+                        text: 'Card'
+                MDButton:
+                    pos_hint: {'center_x': .5, 'top': .085}
+                    theme_width: 'Custom'
+                    size_hint_x: .6
+                    radius: dp(4)
+                    on_release: root.controller.do_set_dialog()
+
+                    MDButtonText:
+                        text: 'Drop Package'
+                        pos_hint: {'center_x': .5, 'center_y': .5}
