@@ -59,6 +59,7 @@ requirements = python3,
     requests,
     kivy_garden.mapview,
     multitasking,
+    openssl,
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
