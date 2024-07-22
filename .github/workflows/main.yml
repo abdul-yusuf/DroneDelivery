@@ -20,7 +20,7 @@ jobs:
           path: main
 
       - name: Build with Buildozer
-        uses: abdul-yusuf/buildozer-action@v1
+        uses: ArtemSBulgakov/buildozer-action@v1.1.3
         id: buildozer
         with:
           command: buildozer android debug
