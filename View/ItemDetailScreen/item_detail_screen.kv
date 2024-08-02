@@ -8,7 +8,7 @@
         self.controller.update_qty()
         title.text = self.controller.model.data['name']
         details.name = self.controller.model.data['name']
-        details.price = self.controller.model.data['price']
+        details.price = str(self.controller.model.data['price'])
         details.description = self.controller.model.data['description']
         root.controller.do_load_image()
 

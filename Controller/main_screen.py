@@ -162,11 +162,12 @@ class MainScreenController:
 
     async def add_screen_reference_to_data(self):
         await asynckivy.sleep(0)
+        self.model.items_data = []
         for item in self.model.data:
             item['on_press'] = lambda _=item: self.do_open_item_detail(_)
             item['root_x'] = self
             self.model.items_data.append(item)
-
+        print('Async Data: ', self.model.data)
         self.view.ids.rv.data = self.model.items_data
 
     def do_search(self, keyword):
@@ -249,11 +250,13 @@ class MainScreenController:
         self.model.notify_observers('main screen')
 
     def add_item_to_cart(self):
-        if isinstance(self.model.data, str):
+        if isinstance(self.model.data, int):
             item_data = None
-            for item in self.model.items_data:
+            print(self.view.ids.rv.data, self.model.data)
+            for item in self.view.ids.rv.data:
                 if item['pk'] == self.model.data:
                     item_data = item
+                    print(item)
                     break
             try:
                 is_added = False
@@ -290,15 +293,15 @@ class MainScreenController:
                     ).open()
                     print('Item Added2')
             except Exception as e:
-                print(e)
+                print('Add func error: ', e)
                 # item = item_data
                 # item['qty'] = 1
-            self.view.ids.cart_info.text = f"Item Qty: {len(self.view.ids.rv2.data)}\n\n[b]TOTAL: ₦ {sum(float(x['price'].split(',')[0] + x['price'].split(',')[1]) if x['qty'] == 1 else float(x['price'].split(',')[0] + x['price'].split(',')[1]) * int(x['qty']) for x in self.view.ids.rv2.data)}[/b]"
+            self.view.ids.cart_info.text = f"Item Qty: {len(self.view.ids.rv2.data)}\n\n[b]TOTAL: ₦ {sum(float(x['price']) if x['qty'] == 1 else float(x['price']) * int(x['qty']) for x in self.view.ids.rv2.data)}[/b]"
         else:
             print(self.model.data.__str__, 'not instance')
 
     def remove_item_from_cart(self):
-        if isinstance(self.model.data, str):
+        if isinstance(self.model.data, int):
             item_data = None
             for item in self.model.items_data:
                 if item['pk'] == self.model.data:
@@ -331,8 +334,8 @@ class MainScreenController:
                             ).open()
                         break
             except Exception as e:
-                print(e)
-            self.view.ids.cart_info.text = f"Item Qty: {len(self.view.ids.rv2.data)}\n\n[b]TOTAL: ₦ {sum(float(x['price'].split(',')[0] + x['price'].split(',')[1]) if x['qty'] == 1 else float(x['price'].split(',')[0] + x['price'].split(',')[1]) * int(x['qty']) for x in self.view.ids.rv2.data)}[/b]"
+                print('Remove func error: ', e)
+            self.view.ids.cart_info.text = f"Item Qty: {len(self.view.ids.rv2.data)}\n\n[b]TOTAL: ₦ {sum(float(x['price']) if x['qty'] == 1 else float(x['price']) * int(x['qty']) for x in self.view.ids.rv2.data)}[/b]"
         self.do_check_if_cart_item()
 
     def do_go_to_checkout(self):
@@ -346,13 +349,6 @@ class MainScreenController:
         else:
             self.view.ids.checkout_btn.style = 'outlined'
             self.view.ids.checkout_btn.disabled = True
-
-    def do_set_order(self, data):
-        """
-        func to send order to the backend.
-
-        """
-        print('Order Details: ', data)
 
     def do_set_dialog(self):
         # btn=

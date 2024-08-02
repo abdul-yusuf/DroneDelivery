@@ -1,13 +1,16 @@
 #:import ObjectProperty kivy.properties.ObjectProperty
 <MainScreenView>
     md_bg_color: app.theme_cls.backgroundColor
-    on_pre_enter: self.controller.do_populate_chip_box()
+    on_pre_enter:
+        root.model.do_get_product_list()
+        self.controller.do_populate_chip_box()
     on_enter: rv.data = self.controller.model.items_data
     id: base_root
     MDScreenManager:
         id: home_screen_manager
         MDScreen:
             name: 'home'
+            on_pre_enter: root.model.do_get_product_list()
 
             MDScrollView:
                 do_scroll_x: False
@@ -43,8 +46,10 @@
 #                        data: root.controller.model.items_data
                         size_hint: 1, None
                         size: root.width, root.height - dp(40)
+                        md_bg_color: app.theme_cls.primaryColor
                         MDRecycleGridLayout:
                             padding: dp(10), dp(10), dp(10), dp(10)
+                            md_bg_color: app.theme_cls.backgroundColor
                             default_size: None, None
                             default_size_hint: 1, None
                             size_hint_y: None
@@ -62,7 +67,7 @@
             name: 'cart'
             on_enter:
                 root.controller.do_check_if_cart_item()
-                cart_info.text = f"Item Qty: {len(rv2.data)}\n\n[b]TOTAL: ₦ {sum(float(x['price'].split(',')[0]+x['price'].split(',')[1]) if x['qty']==1 else float(x['price'].split(',')[0]+x['price'].split(',')[1])*int(x['qty']) for x in rv2.data)}[/b]"
+                cart_info.text = f"Item Qty: {len(rv2.data)}\n\n[b]TOTAL: ₦ {sum(float(x['price']) if x['qty']==1 else float(x['price'])*int(x['qty']) for x in rv2.data)}[/b]"
 
             RecycleView:
                 id: rv2
@@ -116,7 +121,7 @@
                 width: root.width-dp(20)
                 pos_hint: {'center_x': .5, 'center_y': .12}
                 radius: dp(8)
-                on_release: bottom_sheet.set_state("toggle")
+                on_press: bottom_sheet.set_state("toggle")
 #                on_press: root.controller.do_go_to_checkout()
                 MDButtonText:
                     pos_hint: {'center_x': .5, 'center_y': .5}
@@ -264,7 +269,7 @@
             MDLabel:
                 id: checkout_total
                 markup: True
-                text: f"₦ {sum(float(x['price'].split(',')[0]+x['price'].split(',')[1]) if x['qty']==1 else float(x['price'].split(',')[0]+x['price'].split(',')[1])*int(x['qty']) for x in rv2.data)}"
+                text: f"₦ {sum(float(x['price']) if x['qty']==1 else float(x['price'])*int(x['qty']) for x in rv2.data)}"
 #                text: "₦15,000.00"
                 halign: 'right'
 
@@ -301,14 +306,16 @@
                 width: dp(60)
                 md_bg_color: app.theme_cls.primaryColor
                 color: 'white'
+#                    'total': sum(float(x['price']) if x['qty']==1 else float(x['price'])*int(x['qty']) for x in rv2.data),
+#                    'items_qty': len(rv2.data),
+#                    'total_weight': total_weight_label.text,
                 on_press:
-                    root.controller.do_set_order({'items':rv2.data,
-                    'total': sum(float(x['price'].split(',')[0]+x['price'].split(',')[1]) if x['qty']==1 else float(x['price'].split(',')[0]+x['price'].split(',')[1])*int(x['qty']) for x in rv2.data),
-                    'items_qty': len(rv2.data),
-                    'total_weight': total_weight_label.text,
+                    root.model.do_set_order({'items':[{"quantity": i['qty'],"product": i['pk']} for i in rv2.data],
+                    "lat": "11.2340",
+                    "lon": "6.2075",
                     'eta': eta_label.text,
-                    'address': address_label.text,
-                    'payment_method': 'Card'
+#                        'address': address_label.text,
+                    'payment_method': 'card'
                     })
                 MDButtonText:
                     pos_hint: {'center_x': .5, 'center_y': .5}
@@ -432,10 +439,10 @@
     orientation: 'vertical'
 #    base_root: ObjectProperty()
 #    on_press: base_root.controller.do_open_item_detail(self)
-    pk: '1'
+    pk: 1
     name: 'asdasd'
-    price: '2000'
-    category: 'Restaurant'
+    price: 2000.00
+#    category: 'Restaurant'
     vendor: 'Amarya'
     discription: 'Lorem'
     image: 'assets/images/product1.jpg'
@@ -469,9 +476,9 @@
     height: dp(180)
     orientation: 'vertical'
     id: card
-    pk: '1'
+    pk: 1
     name: ''
-    price: ''
+    price: 2000.00
     qty: 1
     image: 'assets/images/product1.jpg'
 

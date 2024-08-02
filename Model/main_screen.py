@@ -1,4 +1,5 @@
-from Model.base_model import BaseScreenModel
+from Model.base_model import BaseScreenModel, snackbar_notification
+from json import dumps
 
 
 class MainScreenModel(BaseScreenModel):
@@ -12,7 +13,7 @@ class MainScreenModel(BaseScreenModel):
             'pk': '1',
             'image': 'assets/images/product1.jpg',
             'name': 'Fendi Watch',
-            'price': '10,000.00',
+            'price': '10000.00',
             'category': 'Restaurant',
             'description': 'Lorem has been around for a thousands of decades',
             'vendor': 'Amarya',
@@ -23,7 +24,7 @@ class MainScreenModel(BaseScreenModel):
             'pk': '2',
             'image': 'assets/images/product2.jpg',
             'name': 'Fendi1 Watch',
-            'price': '20,000.00',
+            'price': '20000.00',
             'category': 'Printing',
             'description': 'Lorem has been around for a thousands of decades',
             'vendor': 'Amarya',
@@ -34,7 +35,7 @@ class MainScreenModel(BaseScreenModel):
             'pk': '3',
             'image': 'assets/images/product3.jpg',
             'name': 'Fendi2 Watch',
-            'price': '11,000.00',
+            'price': '11000.00',
             'category': 'Restaurant',
             'description': 'Lorem has been around for a thousands of decades',
             'vendor': 'Amarya'
@@ -43,7 +44,7 @@ class MainScreenModel(BaseScreenModel):
             'pk': '4',
             'image': 'assets/images/product4.jpg',
             'name': 'Fendi3 Watch',
-            'price': '10,200.00',
+            'price': '10200.00',
             'category': 'Restaurant',
             'description': 'Lorem has been around for a thousands of decades',
             'vendor': "Ma'ata",
@@ -54,7 +55,7 @@ class MainScreenModel(BaseScreenModel):
             'pk': '5',
             'image': 'assets/images/product5.jpg',
             'name': 'Fendi4 Watch',
-            'price': '30,000.00',
+            'price': '30000.00',
             'category': 'Bookshop',
             'description': 'Lorem has been around for a thousands of decades',
             'vendor': 'Amarya',
@@ -88,3 +89,49 @@ class MainScreenModel(BaseScreenModel):
     is_remove_item: bool = False
 
     order_data: dict = {}
+
+    _called_func = []
+
+    def do_get_product_list(self):
+        self._called_func.insert(0, 'do_get_product_list')
+        self.dialog.open()
+        self.api.post_request('http://127.0.0.1:8000/store/products/', self, method='GET')
+
+    def do_set_order(self, data):
+        """
+        func to send order to the backend.
+
+        """
+        print('Order Details: ', data)
+        self._called_func.insert(0, 'do_set_order')
+        self.dialog.open()
+        self.api.post_request('http://127.0.0.1:8000/order/', self, payload=data)
+
+    def on_success(self, *args, **kwargs):
+        print('Success: ', args, kwargs)
+
+        if self._called_func:
+            if self._called_func[0] == 'do_get_product_list':
+                self.data = args[1]
+                print(type(self.data))
+                print(self.data)
+                self.notify_observers_methods('main screen', "refresh_products_data")
+            if self._called_func[0] == 'do_set_order':
+                self.notify_observers_methods('main screen', "refresh_cart_data")
+
+        self.dialog.dismiss()
+
+    def on_error(self, *args, **kwargs):
+        print('ERROR: ', args, kwargs)
+        snackbar_notification(f"{args[1].strerror}")
+        self.dialog.dismiss()
+
+    def on_failure(self, *args, **kwargs):
+        print('Failure: ', args, kwargs)
+
+        if isinstance(args[1].values(), list):
+            msg = args[1]
+        else:
+            msg = args[1][list(args[1])[0]]
+        snackbar_notification(f"{msg}")
+        self.dialog.dismiss()

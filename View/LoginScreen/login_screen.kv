@@ -23,11 +23,13 @@
             spacing: dp(24)
             MDTextField:
                 mode: 'outlined'
+                id: email
                 MDTextFieldHintText:
                     text: "Email"
 
             MDTextField:
                 mode: 'outlined'
+                id: password
                 MDTextFieldHintText:
                     text: "Password"
 
@@ -44,8 +46,10 @@
                 size_hint_x: .8
                 radius: dp(4)
                 on_press:
-                    print('on boarding screen')
-                    app.add_screen('main screen')
+                    root.model.email=email.text
+                    root.model.password=password.text
+                    root.model.do_login()
+#                    app.add_screen('main screen')
                 MDButtonText:
                     text: "Login"
                     pos_hint: {'center_x': .5, 'center_y': .5}

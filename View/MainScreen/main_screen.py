@@ -1,3 +1,4 @@
+import asynckivy
 from kivy.uix.recycleview import RecycleViewBehavior, RecycleDataModel, RecycleDataAdapter, RecycleView, \
     RecycleLayoutManagerBehavior
 from kivymd.uix.boxlayout import MDBoxLayout
@@ -15,10 +16,17 @@ class MainScreenView(BaseScreenView):
         """
         if self.model.is_remove_item:
             self.controller.remove_item_from_cart()
-            print('removing Item')
             self.model.is_remove_item = False
         else:
             self.controller.add_item_to_cart()
+
+    def refresh_products_data(self):
+        asynckivy.start(self.controller.add_screen_reference_to_data())
+
+    def refresh_cart_data(self):
+        self.ids.rv2.data = []
+        self.ids.cart_info.text = f"Item Qty: 0\n\n[b]TOTAL: ₦ 000.00[/b]"
+        self.controller.do_check_if_cart_item()
 
 
 class BottomNav(MDBoxLayout):
@@ -51,6 +59,7 @@ class BottomNav(MDBoxLayout):
         #     btn.style = 'text'
         self.screen_manager.current = screen_name
 
+
 class Rv(RecycleViewBehavior, MDBoxLayout):
     def __init__(self, **kwargs):
         if self.data_model is None:
@@ -60,8 +69,8 @@ class Rv(RecycleViewBehavior, MDBoxLayout):
         super(Rv, self).__init__(**kwargs)
 
         fbind = self.fbind
-        # fbind('scroll_x', self.refresh_from_viewport)
-        # fbind('scroll_y', self.refresh_from_viewport)
+        fbind('scroll_x', self.refresh_from_viewport)
+        fbind('scroll_y', self.refresh_from_viewport)
         fbind('size', self.refresh_from_viewport)
         self.refresh_from_data()
 
@@ -94,7 +103,7 @@ class Rv(RecycleViewBehavior, MDBoxLayout):
             bottom = 0
         else:
             above = (lm_h - h)
-            bottom = max(0, lm_h - above - h)
+            bottom = max(0, lm_h - h)
 
         bottom = max(0, (lm_h - h))
         left = max(0, (lm_w - w))
@@ -105,6 +114,7 @@ class Rv(RecycleViewBehavior, MDBoxLayout):
         # case there's a relative layout type widget in the parent tree
         # between the sv and the lm.
         left, bottom = self._convert_sv_to_lm(left, bottom)
+
         return left, bottom, width, height
 
     def save_viewport(self):
@@ -124,8 +134,6 @@ class Rv(RecycleViewBehavior, MDBoxLayout):
         if self.layout_manager == widget:
             self.layout_manager = None
 
-
-
     # or easier way to use
     def _get_data(self):
         d = self.data_model
@@ -137,7 +145,6 @@ class Rv(RecycleViewBehavior, MDBoxLayout):
             d.data = value
 
     data = AliasProperty(_get_data, _set_data, bind=["data_model"])
-
 
     def _get_viewclass(self):
         a = self.layout_manager

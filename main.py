@@ -187,16 +187,20 @@ from kivy.lang import Builder
 from kivy.core.window import Window
 from kivymd.uix.snackbar import MDSnackbar, MDSnackbarText
 from kivy.config import Config
+from libs.api import API
 
 Config.set('kivy', 'exit_on_escape', 0)
 
+
 class Navigation:
+
     def __init__(self, master: MDScreenManager):
         self.screens = []
         self.master = master
         self.manager = master.manager_screens
         self.count = 0
         self.screens_not_to_recall = ['mobile verification screen', 'otp verification screen']
+
     def prev(self):
         print(self.screens)
         try:
@@ -242,6 +246,7 @@ class MKT(MDApp):
         self.load_all_kv_files(self.directory)
         # This is the screen manager that will contain all the screens of your
         # application.
+        self.api = API()
         self.root = MDScreenManager()
         self.manager_screens = self.root
         self.nav = Navigation(self)
@@ -255,8 +260,8 @@ class MKT(MDApp):
             on_pre_open=lambda _: setattr(spinner, "active", True),
             on_dismiss=lambda _: setattr(spinner, "active", False)
         )
-        Clock.schedule_once(lambda _:self.dialog.add_widget(spinner), 0)
-        Clock.schedule_once(lambda _:self.add_screen('welcome screen'), 0)
+        Clock.schedule_once(lambda _: self.dialog.add_widget(spinner), 0)
+        Clock.schedule_once(lambda _: self.add_screen('welcome screen'), 0)
         Window.bind(on_key_down=self.on_keyboard_down)
 
     def add_screen(self, name_screen, switch=True, first=False):
@@ -267,12 +272,12 @@ class MKT(MDApp):
             self.dialog.open()
             Clock.schedule_once(lambda _: self.load_screen(name_screen, switch, first=True), 0)
         elif switch:
-            Clock.schedule_once(lambda _:self.change_screen(name_screen), 0)
+            Clock.schedule_once(lambda _: self.change_screen(name_screen), 0)
 
     def load_screen(self, name_screen, switch, first):
         try:
             # Builder.load_file(screens[name_screen]["kv"])
-            model = screens[name_screen]["model"]()
+            model = screens[name_screen]["model"](self.api)
             controller = screens[name_screen]["controller"](model)
 
             view = controller.get_view()
@@ -299,5 +304,6 @@ class MKT(MDApp):
             # self.manager_screens.current = self.nav.back()
             return True
         return False
+
 
 MKT().run()
