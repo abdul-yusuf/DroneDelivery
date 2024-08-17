@@ -1,8 +1,9 @@
 #import rgba kivy.utils.rgba
 <OtpVerificationScreenView>
     md_bg_color: app.theme_cls.backgroundColor
-    mobile_no: '090987654321'
-
+#    mobile_no: '090987654321'
+    on_enter:
+        text_label.text=f"[size=28sp][b]Verification[/b][/size]\nEnter the 4 digit OTP sent to [color=#FF0000] {root.model.email}[/color]"
     MDButton:
         style: 'text'
         pos_hint: {'center_x': .1, 'top': .98}
@@ -25,9 +26,10 @@
         pos_hint: {'top': .65}
         adaptive_height: True
         MDLabel:
+            id: text_label
             adaptive_height: True
             halign: 'center'
-            text: f"[size=28sp][b]Verification[/b][/size]\nAn OTP has been sent to [color=#FF0000] {root.mobile_no}[/color]"
+#            text: f"[size=28sp][b]Verification[/b][/size]\nAn OTP has been sent to [color=#FF0000] {root.model.email}[/color]"
             markup: True
 
 
@@ -68,6 +70,7 @@
         padding:dp(10)
         adaptive_height: True
         MDButton:
+            id: verify_btn
             style: 'filled'
             theme_width: 'Custom'
             size_hint_x: 1
@@ -92,5 +95,6 @@
 
             MDButton:
                 style: 'text'
+                on_release: root.model.notify_observers('mobile verification screen')
                 MDButtonText:
                     text: 'Resend Again'

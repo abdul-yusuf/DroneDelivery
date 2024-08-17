@@ -46,10 +46,10 @@
 #                        data: root.controller.model.items_data
                         size_hint: 1, None
                         size: root.width, root.height - dp(40)
-                        md_bg_color: app.theme_cls.primaryColor
+#                        md_bg_color: app.theme_cls.primaryColor
                         MDRecycleGridLayout:
+#                            md_bg_color: app.theme_cls.backgroundColor
                             padding: dp(10), dp(10), dp(10), dp(10)
-                            md_bg_color: app.theme_cls.backgroundColor
                             default_size: None, None
                             default_size_hint: 1, None
                             size_hint_y: None
@@ -57,11 +57,11 @@
                             spacing: dp(10)
                             cols: 2
 
-            MDFabButton:
-                pos_hint: {"center_x": .85, "top": .18}
-                icon: "shopping-search-outline"
-                style: "standard"
-                on_press: app.add_screen('vendor list screen')
+#            MDFabButton:
+#                pos_hint: {"center_x": .85, "top": .18}
+#                icon: "shopping-search-outline"
+#                style: "standard"
+#                on_press: app.add_screen('vendor list screen')
 
         MDScreen:
             name: 'cart'
@@ -220,7 +220,7 @@
             MDLabel:
                 id: address_label
                 markup: True
-                text: "Home\n355,kamasasd rd,Loremn Ipsum has been here"
+                text: "Lat: 11.0002\nLon: 7.0127"
 
             MDButton:
                 id: address_btn

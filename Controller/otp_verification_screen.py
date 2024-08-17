@@ -26,7 +26,9 @@ class OtpVerificationScreenController:
 
     def do_verify(self, *args, **kwargs):
         inst = self.view.ids
-        self.view.app.dialog.open()
-        print(inst.txt1.text, inst.txt2.text, inst.txt3.text, inst.txt4.text)
-        Clock.schedule_once(lambda _:self.view.app.dialog.dismiss(), 3)
-        Clock.schedule_once(lambda _:self.view.app.add_screen('on boarding screen'), 4)
+        if inst.txt1.text in ('', ' ') or inst.txt2.text in ('', ' ') or inst.txt3.text in ('', ' ') or inst.txt4.text in ('', ' '):
+            inst.verify_btn.disabled = True
+        else:
+            inst.verify_btn.disabled = False
+            self.model.otp = inst.txt1.text + inst.txt2.text + inst.txt3.text + inst.txt4.text
+            self.model.do_verify_otp()

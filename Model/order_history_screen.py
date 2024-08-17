@@ -6,15 +6,16 @@ class OrderHistoryScreenModel(BaseScreenModel):
     Implements the logic of the
     :class:`~View.order_history_screen.OrderHistoryScreen.OrderHistoryScreenView` class.
     """
+    data = None
 
-    def do_get_product_list(self):
-        self._called_func.insert(0, 'do_get_product_list')
+    def do_get_order_list(self):
         self.dialog.open()
-        self.api.post_request('http://127.0.0.1:8000/store/products/', self, method='GET')
+        self.api.post_request('http://127.0.0.1:8000/order/', self, method='GET')
 
     def on_success(self, *args, **kwargs):
         print('Success: ', args, kwargs)
-        self.notify_observers('main screen')
+        self.data = args[1]
+        self.notify_observers('order history screen')
         self.dialog.dismiss()
 
     def on_error(self, *args, **kwargs):

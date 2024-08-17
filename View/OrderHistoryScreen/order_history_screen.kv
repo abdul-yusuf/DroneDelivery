@@ -1,5 +1,6 @@
 <OrderHistoryScreenView>
     md_bg_color: app.theme_cls.backgroundColor
+    on_enter: root.model.do_get_order_list()
     MDBoxLayout:
         md_bg_color: app.theme_cls.backgroundColor
         pos_hint: {'center_x': .5, 'top': 1}
@@ -39,10 +40,10 @@
         theme_font_size: 'Custom'
         font_size: '32sp'
     RecycleView:
-        id: rv2
+        id: rv3
         viewclass: 'OrderCard'
         key_size: 'height'
-        data: [{},{'name': 'MacD'},{},{},{},]
+#        data: [{},{'name': 'MacD'},{},{},{},]
         size_hint: 1, None
         size: root.width, root.height - dp(120)
         RecycleGridLayout:
@@ -66,8 +67,9 @@
     image: "assets/images/product1.jpg"
     name: 'Cartier MD'
     weight: '2.1kg'
+    unit: '2.1kg'
     date: 'Jul 15,2024 - 10:45 AM'
-    price: '12000.00'
+    price: 12000.00
     MDBoxLayout:
         spacing: dp(10)
         FitImage:

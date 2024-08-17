@@ -1,5 +1,8 @@
 <LoginScreenView>
     md_bg_color: app.theme_cls.backgroundColor
+    on_pre_enter:
+        email.text=''
+        password.text=''
     MDButton:
         style: 'text'
         pos_hint: {'center_x': .1, 'top': .98}
@@ -24,12 +27,14 @@
             MDTextField:
                 mode: 'outlined'
                 id: email
+                text: 'admin@mail.com'
                 MDTextFieldHintText:
                     text: "Email"
 
             MDTextField:
                 mode: 'outlined'
                 id: password
+                text: 'admin@pass'
                 MDTextFieldHintText:
                     text: "Password"
 

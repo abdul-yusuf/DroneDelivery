@@ -105,10 +105,9 @@ class MainScreenModel(BaseScreenModel):
         print('Order Details: ', data)
         self._called_func.insert(0, 'do_set_order')
         self.dialog.open()
-        self.api.post_request('http://127.0.0.1:8000/order/', self, payload=data)
+        self.api.post_request('http://127.0.0.1:8000/order/create/', self, payload=data)
 
     def on_success(self, *args, **kwargs):
-        print('Success: ', args, kwargs)
 
         if self._called_func:
             if self._called_func[0] == 'do_get_product_list':
@@ -122,13 +121,10 @@ class MainScreenModel(BaseScreenModel):
         self.dialog.dismiss()
 
     def on_error(self, *args, **kwargs):
-        print('ERROR: ', args, kwargs)
         snackbar_notification(f"{args[1].strerror}")
         self.dialog.dismiss()
 
     def on_failure(self, *args, **kwargs):
-        print('Failure: ', args, kwargs)
-
         if isinstance(args[1].values(), list):
             msg = args[1]
         else:

@@ -99,6 +99,11 @@ screens = {
         'controller': LoginScreenController,
         'kv': 'View/LoginScreen/login_screen.kv'
     },
+    'edit profile screen': {
+        'model': EditProfileScreenModel,
+        'controller': EditProfileScreenController,
+        'kv': 'View/EditProfileScreen/edit_profile_screen.kv'
+    },
     # 'aboutus screen': {
     #     'model': AboutusScreenModel,
     #     'controller': AboutusScreenController,

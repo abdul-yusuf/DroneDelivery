@@ -38,6 +38,7 @@ DEBUG=1 python main.py
 # from kivy.uix.modalview import ModalView
 # from kivy.clock import Clock
 # from kivy.properties import ListProperty
+# from libs.api import API
 #
 # class Navigation:
 #     def __init__(self, master: MDScreenManager):
@@ -111,7 +112,7 @@ DEBUG=1 python main.py
 #         screens = View.screens.screens
 #
 #         for i, name_screen in enumerate(screens.keys()):
-#             model = screens[name_screen]["model"]()
+#             model = screens[name_screen]["model"](API())
 #             controller = screens[name_screen]["controller"](model)
 #             view = controller.get_view()
 #             view.manager_screens = self.manager_screens
@@ -162,18 +163,18 @@ DEBUG=1 python main.py
 # """
 #
 
-"""
-The entry point to the application.
-
-The application uses the MVC template. Adhering to the principles of clean
-architecture means ensuring that your application is easy to test, maintain,
-and modernize.
-
-You can read more about this template at the links below:
-
-https://github.com/HeaTTheatR/LoginAppMVC
-https://en.wikipedia.org/wiki/Model–view–controller
-"""
+# """
+# The entry point to the application.
+#
+# The application uses the MVC template. Adhering to the principles of clean
+# architecture means ensuring that your application is easy to test, maintain,
+# and modernize.
+#
+# You can read more about this template at the links below:
+#
+# https://github.com/HeaTTheatR/LoginAppMVC
+# https://en.wikipedia.org/wiki/Model–view–controller
+# """
 
 from kivymd.app import MDApp
 from kivymd.uix.screenmanager import MDScreenManager
@@ -261,7 +262,7 @@ class MKT(MDApp):
             on_dismiss=lambda _: setattr(spinner, "active", False)
         )
         Clock.schedule_once(lambda _: self.dialog.add_widget(spinner), 0)
-        Clock.schedule_once(lambda _: self.add_screen('welcome screen'), 0)
+        Clock.schedule_once(lambda _: self.add_screen('welcome screen', first=True), 0)
         Window.bind(on_key_down=self.on_keyboard_down)
 
     def add_screen(self, name_screen, switch=True, first=False):

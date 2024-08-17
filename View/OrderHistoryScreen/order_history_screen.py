@@ -8,3 +8,6 @@ class OrderHistoryScreenView(BaseScreenView):
         The view in this method tracks these changes and updates the UI
         according to these changes.
         """
+        print('*'*20)
+        print(self.model.data)
+        self.ids.rv3.data = self.model.data

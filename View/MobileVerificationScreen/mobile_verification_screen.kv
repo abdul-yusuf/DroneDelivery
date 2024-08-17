@@ -13,7 +13,7 @@
         MDLabel:
             adaptive_height: True
             halign: 'center'
-            text: '[size=28sp][b]Verification[/b][/size]\nWe will send you a one time password to your Phone Number'
+            text: '[size=28sp][b]Verification[/b][/size]\nWe will send you a one time password (OTP) to your Email'
             markup: True
 
 
@@ -24,10 +24,10 @@
         orientation: 'vertical'
         spacing: dp(30)
         padding: dp(10)
-        MDTextField:
-            mode: 'outlined'
-            MDTextFieldHintText:
-                text: "Phone Number"
+#        MDTextField:
+#            mode: 'outlined'
+#            MDTextFieldHintText:
+#                text: "Phone Number"
 
         MDButton:
             style: 'filled'
@@ -36,7 +36,7 @@
 #            height: dp(90)
             pos_hint: {'center_x': .5, 'center_y':.5}
             radius: dp(6)
-            on_press: app.add_screen('otp verification screen')
+            on_press: root.model.do_send_otp()
             MDButtonText
                 text: 'Get OTP'
                 pos_hint: {'center_x': .5, 'center_y': .5}

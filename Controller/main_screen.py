@@ -25,6 +25,7 @@ from kivy.clock import Clock
 from kivy.uix.widget import Widget
 import re
 import requests
+from kivy.network.urlrequest import UrlRequest
 
 
 class fscreen(Widget):
@@ -32,11 +33,14 @@ class fscreen(Widget):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        self.parent = None
         self.list_of_lines = []
         self.route_points = []
         self.placed = False
         self.exists = False
         self.ids.main_map.zoom = 15
+        if 'lat' in kwargs.keys():
+            print(kwargs)
         self.ids.main_map.center_on(self.ids.main_map_me.lat, self.ids.main_map_me.lon)
         self.my_avat = 'assets/images/me.png'
 
@@ -56,12 +60,14 @@ class fscreen(Widget):
         if touch.y > self.height * 0.05:
             if self.placed == True and self.exists == False:
                 self.dist = MapMarkerPopup(lat=self.ids.main_map.get_latlon_at(touch.x, touch.y)[0],
-                                           lon=self.ids.main_map.get_latlon_at(touch.x, touch.y)[1], source='assets/images/dist.png')
-
-                self.btn = MDButton(MDButtonText(text='print loc'), on_press=self.press_dist)
-                self.dist.add_widget(self.btn)
+                                           lon=self.ids.main_map.get_latlon_at(touch.x, touch.y)[1],
+                                           source='assets/images/location_icon.png'
+                                           )
+                self.dist.size = [self.width*0.3, self.height*0.05]
+                # self.btn = MDButton(MDButtonText(text='print loc'), on_press=self.press_dist)
+                # self.dist.add_widget(self.btn)
                 self.ids.main_map.add_widget(self.dist)
-                print(self.ids.main_map.get_latlon_at(touch.x, touch.y))
+                print(self.ids.main_map.parent)
                 self.exists = True
 
     def press_dist(self, instance):
@@ -74,52 +80,7 @@ class fscreen(Widget):
         self.end_lon = self.dist.lon
         self.end_lat = self.dist.lat
         self.body = {"coordinates": [[self.start_lon, self.start_lat], [self.end_lon, self.end_lat]]}
-        try:
-            self.headers = {
-                'Accept': 'application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8',
-                'Authorization': '5b3ce3597851110001cf6248e32f3f787ba541e8b3d916f4681b9340',
-                'Content-Type': 'application/json; charset=utf-8'}
-            self.call = requests.post('https://api.openrouteservice.org/v2/directions/driving-car/gpx', json=self.body,
-                                      headers=self.headers)
-            print(self.call.text)
-            self.string_res = self.call.text
 
-            print(self.string_res)
-
-            self.tag = 'rtept'
-            self.reg_str = '</' + self.tag + '>(.*?)' + '>'
-            self.res = re.findall(self.reg_str, self.string_res)
-            print(self.res)
-            print('_____________________________________')
-            self.string1 = str(self.res)
-            self.tag1 = '"'
-            self.reg_str1 = '"' + '(.*?)' + '"'
-            self.res1 = re.findall(self.reg_str1, self.string1)
-            print(self.res1)
-
-            for i in range(0, len(self.res1) - 1, 2):
-                print('lat= ' + self.res1[i])
-                print('lon= ' + self.res1[i + 1])
-
-                self.points_lat = self.res1[i]
-                self.points_lon = self.res1[i + 1]
-
-                self.points_pop = MapMarkerPopup(lat=self.points_lat, lon=self.points_lon, source='assets/images/waypoints.png')
-                self.route_points.append(self.points_pop)
-
-                self.ids.main_map.add_widget(self.points_pop)
-        except Exception as e:
-            print(e)
-
-        with self.canvas:
-            Color(0.5, 0, 0, 1)
-            for j in range(0, len(self.route_points) - 1, 1):
-                self.lines = Line(points=(
-                self.route_points[j].pos[0], self.route_points[j].pos[1], self.route_points[j + 1].pos[0],
-                self.route_points[j + 1].pos[1]), width=4)
-                self.list_of_lines.append(self.lines)
-
-        Clock.schedule_interval(self.update_route_lines, 1 / 50)
 
     def update_route_lines(self, *args):
         for j in range(1, len(self.route_points), 1):
@@ -431,16 +392,17 @@ class MainScreenController:
         else:
             try:
                 location = geocoder.ip('me')
-                self.map.center_on(location.latlng[0], location.latlng[1])
-                print(self.map.lat, self.map.lon)
                 org = location.json['org']
                 addr = location.json['address']
                 if org == 'AS37686 Ahmadu Bello University Zaria Nigeria' and addr == 'Zaria, Kaduna State, NG':
                     print('You are within our area of service')
                     print('org: ', org, 'addr: ', addr)
+                    print(dir(self.map))
+                    self.map.ids.main_map.center_on(location.latlng[0], location.latlng[1])
                 else:
                     print('You are not within our area of service')
                     print('org: ', org, 'addr: ', addr)
+                print(self.map.ids.main_map.lat, self.map.ids.main_map.lon)
             except Exception as e:
                 print('Location Error:', e)
 
@@ -448,6 +410,9 @@ class MainScreenController:
     def on_location(self, **kwargs):
         self.gps_location = '\n'.join([
             '{}={}'.format(k, v) for k, v in kwargs.items()])
+        print(self.gps_location)
+        # self.model.lat = kwargs
+        # self.model.lon =
 
     @mainthread
     def on_status(self, stype, status):

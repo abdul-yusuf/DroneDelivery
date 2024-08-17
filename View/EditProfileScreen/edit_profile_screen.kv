@@ -1,1 +1,95 @@
 <EditProfileScreenView>
+    md_bg_color: app.theme_cls.backgroundColor
+    MDBoxLayout:
+        md_bg_color: app.theme_cls.backgroundColor
+        pos_hint: {'center_x': .5, 'top': 1}
+        size_hint: 1, None
+        height: dp(65)
+        radius: dp(4)
+        padding: [dp(10)]
+        MDRelativeLayout:
+            MDButton:
+                pos_hint: {'left': 1, 'center_y': .5}
+                theme_width: 'Custom'
+                width: dp(55)
+                style: 'text'
+                on_press:
+                    app.nav.prev()
+                MDButtonIcon:
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                    icon: 'arrow-left'
+            MDButton:
+                pos_hint: {'right': 1, 'center_y': .5}
+                theme_width: 'Custom'
+                width: dp(55)
+                style: 'text'
+                on_press:
+#                    app.switch(self, 'home')
+                MDButtonIcon:
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                    icon: 'dots-vertical'
+
+    MDLabel:
+        pos_hint: {'top': .92}
+        text: 'User Details'
+        bold: True
+        halign: 'center'
+        adaptive_height: True
+        theme_font_size: 'Custom'
+        font_size: '22sp'
+
+
+    MDBoxLayout:
+        orientation: 'vertical'
+        pos_hint: {'top': .85}
+        adaptive_height: True
+        padding: dp(10)
+        MDBoxLayout:
+            orientation: 'vertical'
+            spacing: dp(24)
+            adaptive_height: True
+
+            MDTextField:
+                id: email
+                validator: "email"
+                text: 'abdul@mail.com'
+                disabled: True
+                MDTextFieldHelperText:
+                    mode: "on_focus"
+                    text: "user@gmail.com"
+                MDTextFieldHintText:
+                    id: HintText
+                    text: 'Email'
+
+            MDTextField:
+                id: first_name
+                text: 'Yusuf'
+                MDTextFieldHelperText:
+                    id: HelperText
+                    mode: "on_focus"
+                    text: 'Enter First Name'
+                MDTextFieldHintText:
+                    id: HintText
+                    text: 'First Name'
+
+            MDTextField:
+                id: last_name
+                text: 'Abdul'
+                MDTextFieldHelperText:
+                    mode: "on_focus"
+                    text: 'Enter Last Name'
+                MDTextFieldHintText:
+                    text: 'Last Name'
+
+    MDButton:
+        theme_width: 'Custom'
+        size_hint_x: .8
+        pos_hint: {'center_x': .5, 'top':.2}
+        radius: dp(4)
+        style: 'filled'
+        on_press:
+            root.controller.do_signup()
+#            app.add_screen('mobile verification screen')
+        MDButtonText:
+            text: 'Save Changes'
+            pos_hint: {'center_x': .5, 'center_y':.5}
