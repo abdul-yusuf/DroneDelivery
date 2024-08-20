@@ -25,10 +25,13 @@ class OrderHistoryScreenModel(BaseScreenModel):
 
     def on_failure(self, *args, **kwargs):
         print('Failure: ', args, kwargs)
+        try:
+            if isinstance(args[1].values(), list):
+                msg = args[1]
+            else:
+                msg = args[1][list(args[1])[0]]
+            snackbar_notification(f"{msg}")
+        except AttributeError:
+            snackbar_notification("An Error occurred")
 
-        if isinstance(args[1].values(), list):
-            msg = args[1]
-        else:
-            msg = args[1][list(args[1])[0]]
-        snackbar_notification(f"{msg}")
         self.dialog.dismiss()

@@ -160,6 +160,7 @@
                     height: root.height-(user_detail.height+dp(120))
                     MDList:
                         MDListItem:
+                            on_press: app.add_screen('edit profile screen')
                             MDListItemHeadlineText:
                                 text: 'Edit Profile'
                         MDListItem:
@@ -293,6 +294,7 @@
                 color: 'white'
                 on_press: bottom_sheet2.set_state("toggle")
                 MDButtonText:
+                    id: pay_service
                     pos_hint: {'center_x': .5, 'center_y': .5}
                     text: 'Pay using:\n[size=34][b]Card[/b][/size]'
             Widget:
@@ -311,11 +313,11 @@
 #                    'total_weight': total_weight_label.text,
                 on_press:
                     root.model.do_set_order({'items':[{"quantity": i['qty'],"product": i['pk']} for i in rv2.data],
-                    "lat": "11.2340",
-                    "lon": "6.2075",
+                    "lat": address_label.text.split(' ')[1].split("n")[0][:-3],
+                    "lon": address_label.text.split(' ')[2].strip(),
                     'eta': eta_label.text,
 #                        'address': address_label.text,
-                    'payment_method': 'card'
+                    'payment_method': pay_service.text.split('b]')[1].split('[')[0].lower()
                     })
                 MDButtonText:
                     pos_hint: {'center_x': .5, 'center_y': .5}
@@ -351,6 +353,7 @@
             MDButton:
                 id: cash_btn
                 radius: dp(8)
+                on_press: root.controller.do_set_pay_service('Cash')
                 MDButtonText:
                     text: 'Cash'
                 MDButtonIcon:
@@ -358,6 +361,7 @@
             MDButton:
                 id: card_btn
                 radius: dp(8)
+                on_press: root.controller.do_set_pay_service('Card')
                 MDButtonText:
                     text: 'Card'
                 MDButtonIcon:
@@ -365,6 +369,7 @@
             MDButton:
                 id: paypal_btn
                 radius: dp(8)
+                on_press: root.controller.do_set_pay_service('PayPal')
                 MDButtonText:
                     text: 'PayPal'
                 MDButtonIcon:

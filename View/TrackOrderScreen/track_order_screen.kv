@@ -32,11 +32,12 @@
             MDLabel:
                 text: 'Order ID: #23989283'
                 halign: 'center'
+#    MDRelativeLayout:
     MDScrollView:
         do_scroll_x: False
-        do_scroll_y: True
+        do_scroll_y: False
         size_hint: 1, None
-        size: root.width, root.height - dp(60)
+        size: root.width, root.height- dp(120)
         MDBoxLayout:
             orientation: 'vertical'
             MapView:
@@ -69,10 +70,10 @@
                     adaptive_height: True
                     MDLabel:
                         adaptive_height: True
-                        text: 'Latitude: 7.323431'
+                        text: f"Latitude: {root.model.data['lon']}"
                     MDLabel:
                         halign: 'right'
-                        text: 'Longitute: 7.323431'
+                        text: f"Longitute: {root.model.data['lon']}"
 
                 MDCard:
                     padding: dp(10)
@@ -82,7 +83,7 @@
                     MDLabel:
                         halign: 'right'
                         adaptive_height: True
-                        text: '10-35 min'
+                        text: f"{root.model.data['eta']"
 
                 MDCard:
                     padding: dp(10)
@@ -92,7 +93,7 @@
                     MDLabel:
                         halign: 'right'
                         adaptive_height: True
-                        text: '21 June, 2024'
+                        text: f"{root.model.data['date']}"
 
                 MDCard:
                     padding: dp(10)
@@ -102,7 +103,7 @@
                     MDLabel:
                         halign: 'right'
                         adaptive_height: True
-                        text: 'Card'
+                        text: f"{root.model.data['status']}"
                 MDButton:
                     pos_hint: {'center_x': .5, 'top': .085}
                     theme_width: 'Custom'
@@ -111,5 +112,5 @@
                     on_release: root.controller.do_set_dialog()
 
                     MDButtonText:
-                        text: 'Drop Package'
+                        text: 'Confirm Package Reecived'
                         pos_hint: {'center_x': .5, 'center_y': .5}

@@ -8,6 +8,7 @@
 from kivymd.uix.snackbar import MDSnackbar, MDSnackbarText
 from kivy.metrics import dp
 
+
 def snackbar_notification(msg):
 
     MDSnackbar(

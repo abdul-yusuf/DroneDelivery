@@ -14,3 +14,5 @@ class TrackOrderScreenModel(BaseScreenModel):
         'date':'21 june, 2024',
         'payment_method': 'Card',
     }
+
+    pk = 1

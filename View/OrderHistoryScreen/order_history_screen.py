@@ -10,4 +10,9 @@ class OrderHistoryScreenView(BaseScreenView):
         """
         print('*'*20)
         print(self.model.data)
-        self.ids.rv3.data = self.model.data
+        data = []
+        for item in self.model.data:
+            item['rootx'] = self
+            data.append(item)
+
+        self.ids.rv3.data = data

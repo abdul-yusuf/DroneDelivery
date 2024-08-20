@@ -14,8 +14,6 @@ import View.TrackOrderScreen.track_order_screen
 importlib.reload(View.TrackOrderScreen.track_order_screen)
 
 
-
-
 class TrackOrderScreenController:
     """
     The `TrackOrderScreenController` class represents a controller implementation.
@@ -23,6 +21,24 @@ class TrackOrderScreenController:
     The controller implements the strategy pattern. The controller connects to
     the view to control its actions.
     """
+    data = {
+        'pk': 60,
+        'name': 'White Rice',
+        'lat': '11.2340000000000000',
+        'lon': '6.2075000000000000',
+        'eta': '10 mins',
+        'date': '02 August, 2024',
+        'price': 10000,
+        'payment_method': 'card',
+        'item': [
+            {
+                'quantity': 1,
+                'product': 1
+            }
+        ],
+        'weight': '10 gram',
+        'status': ''
+    }
 
     txt_box1 = None
     txt_box2 = None
@@ -95,3 +111,4 @@ class TrackOrderScreenController:
             ),
             size_hint=(.9, None),
         ).open()
+

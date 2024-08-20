@@ -8,3 +8,4 @@ class TrackOrderScreenView(BaseScreenView):
         The view in this method tracks these changes and updates the UI
         according to these changes.
         """
+        print('recieveied')

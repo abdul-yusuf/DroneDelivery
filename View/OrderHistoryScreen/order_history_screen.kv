@@ -70,6 +70,8 @@
     unit: '2.1kg'
     date: 'Jul 15,2024 - 10:45 AM'
     price: 12000.00
+    pk: 1
+    status: ''
     MDBoxLayout:
         spacing: dp(10)
         FitImage:
@@ -80,7 +82,7 @@
             radius: dp(10)
         MDLabel:
             adaptive_height: True
-            text: f'[size=18]{root.name}[/size]\n{root.weight}\n{root.date}\n₦{root.price}\n[color=FF5000]Canceled[/color]'
+            text: f'[size=18]{root.name}[/size]\n{root.weight}\n{root.date}\n₦{root.price}\n[color=FF5000]{root.status}[/color]'
             markup: True
             theme_font_size: 'Custom'
             font_size: '16px'
@@ -90,7 +92,8 @@
         theme_width: 'Custom'
         size_hint_x: .9
         on_press:
-            app.add_screen('track order screen')
+            root.rootx.controller.do_open_track_progress(root.pk)
+#            app.add_screen('track order screen')
         MDButtonText:
             text: 'Track Order'
             pos_hint: {'center_x': .5, 'center_y': .5}

@@ -31,9 +31,9 @@ from kivy.network.urlrequest import UrlRequest
 class fscreen(Widget):
     my_avat = StringProperty()
 
-    def __init__(self, **kwargs):
+    def __init__(self, parentx=None, **kwargs):
         super().__init__(**kwargs)
-        self.parent = None
+        self.parentx = parentx
         self.list_of_lines = []
         self.route_points = []
         self.placed = False
@@ -63,11 +63,13 @@ class fscreen(Widget):
                                            lon=self.ids.main_map.get_latlon_at(touch.x, touch.y)[1],
                                            source='assets/images/location_icon.png'
                                            )
-                self.dist.size = [self.width*0.3, self.height*0.05]
+                self.dist.size = [self.width*0.4, self.height*0.08]
                 # self.btn = MDButton(MDButtonText(text='print loc'), on_press=self.press_dist)
                 # self.dist.add_widget(self.btn)
                 self.ids.main_map.add_widget(self.dist)
                 print(self.ids.main_map.parent)
+                self.parentx.do_address_label(self.ids.main_map.get_latlon_at(touch.x, touch.y)[0],
+                                             self.ids.main_map.get_latlon_at(touch.x, touch.y)[1])
                 self.exists = True
 
     def press_dist(self, instance):
@@ -100,7 +102,13 @@ class MainScreenController:
     gps_status = ''
     map = None
 
-    def do_create_map(self):
+    def do_address_label(self, lat, lon):
+        self.view.ids.address_label.text = f"Lat: {lat}\nLon: {lon}"
+
+    def do_set_pay_service(self, data):
+        self.view.ids.pay_service.text = f"Pay using:\n[size=34][b]{data}[/b][/size]"
+
+    def do_create_map(self, parent=None):
         # self.map = MapView(
         #             lat=11.15358,
         #             lon=7.651,
@@ -109,7 +117,7 @@ class MainScreenController:
         #             pos_hint={"center_x": .5, "center_y": .5},
         #         )
 
-        self.map = fscreen()
+        self.map = fscreen(parentx=parent)
         return self.map
 
     def __init__(self, model):
@@ -325,7 +333,7 @@ class MainScreenController:
             MDDialogContentContainer(
                 # MDWidget(),
                 MDRelativeLayout(
-                    self.do_create_map(),
+                    self.do_create_map(parent=self),
                     size_hint=(1, None),
                     # height='280dp'
                     height=self.view.app.root.height / 2

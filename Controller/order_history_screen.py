@@ -24,3 +24,9 @@ class OrderHistoryScreenController:
 
     def get_view(self) -> View.OrderHistoryScreen.order_history_screen:
         return self.view
+
+
+    def do_open_track_progress(self, pk):
+        self.view.app.add_screen('track order screen')
+        self.model.pass_attribute('track order screen', pk)
+        self.model.notify_observers('track order screen')

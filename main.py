@@ -189,6 +189,7 @@ from kivy.core.window import Window
 from kivymd.uix.snackbar import MDSnackbar, MDSnackbarText
 from kivy.config import Config
 from libs.api import API
+from kivy.utils import get_color_from_hex
 
 Config.set('kivy', 'exit_on_escape', 0)
 
@@ -244,11 +245,14 @@ class Navigation:
 class MKT(MDApp):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        primary_color = get_color_from_hex("#FF3E41")
+
         self.load_all_kv_files(self.directory)
         # This is the screen manager that will contain all the screens of your
         # application.
         self.api = API()
         self.root = MDScreenManager()
+        self.theme_cls.primary_palette = "Orange"
         self.manager_screens = self.root
         self.nav = Navigation(self)
         spinner = Factory.MDCircularProgressIndicator(line_width=dp(1.5))
@@ -262,6 +266,7 @@ class MKT(MDApp):
             on_dismiss=lambda _: setattr(spinner, "active", False)
         )
         Clock.schedule_once(lambda _: self.dialog.add_widget(spinner), 0)
+        # Clock.schedule_once(lambda _: self.add_screen('track order screen', first=True), 0)
         Clock.schedule_once(lambda _: self.add_screen('welcome screen', first=True), 0)
         Window.bind(on_key_down=self.on_keyboard_down)
 
