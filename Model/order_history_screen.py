@@ -10,7 +10,7 @@ class OrderHistoryScreenModel(BaseScreenModel):
 
     def do_get_order_list(self):
         self.dialog.open()
-        self.api.post_request('http://127.0.0.1:8000/order/', self, method='GET')
+        self.api.post_request('https://yusufabdul.pythonanywhere.com/order/', self, method='GET')
 
     def on_success(self, *args, **kwargs):
         print('Success: ', args, kwargs)

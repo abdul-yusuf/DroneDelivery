@@ -15,14 +15,14 @@ class MobileVerificationScreenModel(BaseScreenModel):
         if self.is_first:
             self._called_func.insert(0, 'do_send_otp')
             self.dialog.open()
-            self.api.post_request('http://127.0.0.1:8000/accounts/otp/generate/', self, payload={"email": self.email})
+            self.api.post_request('https://yusufabdul.pythonanywhere.com/accounts/otp/generate/', self, payload={"email": self.email})
         else:
             self.do_resend_otp()
 
     def do_resend_otp(self):
         self._called_func.insert(0, 'do_resend_otp')
         self.dialog.open()
-        self.api.post_request('http://127.0.0.1:8000/accounts/otp/generate/', self, payload={"email": self.email})
+        self.api.post_request('https://yusufabdul.pythonanywhere.com/accounts/otp/generate/', self, payload={"email": self.email})
 
     def on_success(self, *args, **kwargs):
         if self._called_func:

@@ -95,7 +95,7 @@ class MainScreenModel(BaseScreenModel):
     def do_get_product_list(self):
         self._called_func.insert(0, 'do_get_product_list')
         self.dialog.open()
-        self.api.post_request('http://127.0.0.1:8000/store/products/', self, method='GET')
+        self.api.post_request('https://yusufabdul.pythonanywhere.com/store/products/', self, method='GET')
 
     def do_set_order(self, data):
         """
@@ -105,7 +105,7 @@ class MainScreenModel(BaseScreenModel):
         print('Order Details: ', data)
         self._called_func.insert(0, 'do_set_order')
         self.dialog.open()
-        self.api.post_request('http://127.0.0.1:8000/order/create/', self, payload=data)
+        self.api.post_request('https://yusufabdul.pythonanywhere.com/order/create/', self, payload=data)
 
     def on_success(self, *args, **kwargs):
 

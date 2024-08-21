@@ -18,7 +18,7 @@ class LoginScreenModel(BaseScreenModel):
         self._called_func.insert(0, 'do_login')
         if self.email not in ('', ' ') and self.password not in ('', ' '):
             self.dialog.open()
-            self.api.post_request('http://127.0.0.1:8000/accounts/token/', self, payload={
+            self.api.post_request('https://yusufabdul.pythonanywhere.com/accounts/token/', self, payload={
                 "email": self.email,
                 "password": self.password
             })
@@ -29,7 +29,7 @@ class LoginScreenModel(BaseScreenModel):
     def do_check_user(self):
         self._called_func.insert(0, 'do_check_user')
         # self.dialog.open()
-        self.populated_api.post_request('http://127.0.0.1:8000/accounts/user/', self, method='GET')
+        self.populated_api.post_request('https://yusufabdul.pythonanywhere.com/accounts/user/', self, method='GET')
         self.dialog.dismiss()
 
     def on_success(self, *args, **kwargs):

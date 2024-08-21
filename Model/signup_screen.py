@@ -14,7 +14,7 @@ class SignupScreenModel(BaseScreenModel):
 
     def do_signup(self):
         self.dialog.open()
-        self.api.post_request('http://127.0.0.1:8000/accounts/signup/', self, payload={
+        self.api.post_request('https://yusufabdul.pythonanywhere.com/accounts/signup/', self, payload={
                                                                                           "email": self.email,
                                                                                           "first_name": self.first_name,
                                                                                           "last_name": self.last_name,

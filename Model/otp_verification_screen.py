@@ -16,7 +16,7 @@ class OtpVerificationScreenModel(BaseScreenModel):
             "pin":self.otp
         }
         print(payload)
-        self.api.post_request('http://127.0.0.1:8000/accounts/otp/verify/', self, payload=payload)
+        self.api.post_request('https://yusufabdul.pythonanywhere.com/accounts/otp/verify/', self, payload=payload)
 
     def on_success(self, *args, **kwargs):
         print('Success: ', args, kwargs)
