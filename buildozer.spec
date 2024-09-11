@@ -66,7 +66,7 @@ requirements = python3,
 # requirements.source.kivy = ../../kivy
 
 # (str) Presplash of the application
-#presplash.filename = %(source.dir)s/assets/logo/android-chrome-192x192.png
+presplash.filename = %(source.dir)s/assets/logo/android-chrome-512x512.png
 
 # (str) Icon of the application
 icon.filename = %(source.dir)s/assets/logo/android-chrome-512x512.png
