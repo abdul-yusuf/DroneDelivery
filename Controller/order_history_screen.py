@@ -1,7 +1,7 @@
 import importlib
 
 import View.OrderHistoryScreen.order_history_screen
-
+from kivy.clock import Clock
 # We have to manually reload the view module in order to apply the
 # changes made to the code on a subsequent hot reload.
 # If you no longer need a hot reload, you can delete this instruction.
@@ -28,5 +28,5 @@ class OrderHistoryScreenController:
 
     def do_open_track_progress(self, pk):
         self.view.app.add_screen('track order screen')
-        self.model.pass_attribute('track order screen', pk)
-        self.model.notify_observers('track order screen')
+        Clock.schedule_once(lambda _=pk:self.model.pass_attribute('track order screen', _), 1)
+        Clock.schedule_once(lambda _:self.model.notify_observers('track order screen'), 1)
