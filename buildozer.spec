@@ -94,6 +94,9 @@ orientation = portrait
 # Kivy version to use
 osx.kivy_version = 2.2.0
 
+# (str) Python version to use, defaults to 3
+android.python_version = 3.8
+
 #
 # Android specific
 #
